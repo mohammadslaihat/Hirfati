@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- الصفحة الرئيسية للعميل بعد تسجيل الدخول -->
+<!-- فيها البحث والخدمات والحرفيون المميزون وخطوات استخدام المنصة -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- الصفحة خاصة بالعملاء فقط -->
+<!-- الخادم لا يرسلها لغيرهم وملف الدوال المشتركة يتحقق مرة أخرى من نوع الحساب -->
+<!-- اسم الصفحة يحدد الدالة التي تعمل من ملف صفحات العميل -->
+<!-- والمسار الجذري يرجع مستوى واحداً لأن الصفحة داخل مجلد فرعي -->
 <body data-role="customer" data-page="home" data-root="../">
+  <!-- الشريط العلوي فارغ هنا ويرسمه السكربت بالشعار والروابط واسم المستخدم وزر الخروج -->
   <header id="site-header"></header>
 
   <main>
+    <!-- القسم الملون العلوي وفيه عنوان ترحيبي -->
     <section class="hero">
       <div class="container">
         <h1>اعثر على الحرفي المناسب لخدمتك بسهولة</h1>
@@ -21,7 +30,9 @@
     </section>
 
     <div class="container page">
-      <!-- صندوق الفلترة -->
+      <!-- نموذج البحث ينقل المستخدم إلى صفحة الحرفيين -->
+      <!-- ويضيف الخدمة والمحافظة المختارتين إلى الرابط -->
+      <!-- القائمتان يملؤهما السكربت -->
       <form class="filter-box" id="filter-form" action="craftsmen.html" method="get">
         <div class="form-group">
           <label for="filter-service">نوع الخدمة</label>
@@ -34,7 +45,9 @@
         <button type="submit" class="btn btn-primary">بحث</button>
       </form>
 
-      <!-- الخدمات -->
+      <!-- قسم الخدمات -->
+      <!-- شبكة بطاقات الخدمات يملؤها السكربت -->
+      <!-- والقسم المخفي يظهر عند الضغط على زر الخدمات الأخرى -->
       <section class="section">
         <h2 class="section-title">الخدمات</h2>
         <p class="section-sub">اختر الخدمة التي تحتاجها لعرض الحرفيين المتخصصين بها.</p>
@@ -45,13 +58,16 @@
         </div>
       </section>
 
-      <!-- الحرفيون المميزون -->
+      <!-- قسم الحرفيين المميزين -->
+      <!-- بطاقات مشتركي برو الفعالين تأتي من الخادم وترسم هنا -->
       <section class="section">
         <h2 class="section-title">الحرفيون المميزون</h2>
         <div class="grid grid-3" id="featured-grid"></div>
       </section>
 
-      <!-- كيف تعمل المنصة -->
+      <!-- قسم كيف تعمل المنصة -->
+      <!-- أربع بطاقات ثابتة تشرح خطوات الاستخدام -->
+      <!-- وملف التنسيق يضيف رقم كل خطوة تلقائياً -->
       <section class="section">
         <h2 class="section-title">كيف تعمل المنصة</h2>
         <p class="section-sub">أربع خطوات بسيطة للوصول إلى الخدمة التي تحتاجها.</p>
@@ -81,6 +97,7 @@
 
   <script src="../static/js/api.js"></script>
   <script src="../static/js/main.js"></script>
+  <!-- ملف دوال صفحات العميل -->
   <script src="../static/js/customer.js"></script>
 </body>
 </html>

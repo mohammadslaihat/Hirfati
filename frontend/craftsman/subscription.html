@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة الاشتراك للحرفي -->
+<!-- تظهر بعد إنشاء حساب الحرفي وعند الضغط على زر الاشتراك في ملفه -->
+<!-- فيها ثلاثة أقسام مخفية والسكربت يظهر قسماً واحداً منها حسب الحالة -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +13,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- صفحة خاصة بالحرفي ودالتها في ملف صفحات الحرفي -->
 <body data-role="craftsman" data-page="subscription" data-root="../">
   <header id="site-header"></header>
 
   <main class="container page">
-    <!-- الخطوة 1: اختيار نوع الاشتراك -->
+    <!-- القسم الأول اختيار نوع الاشتراك -->
     <section id="step-choose" hidden>
       <h1 class="page-title">اختر نوع الاشتراك</h1>
       <p class="section-sub">يمكنك البدء مجاناً، أو الاشتراك في Pro للحصول على مزايا إضافية.</p>
 
+      <!-- بطاقتا الباقتين -->
+      <!-- الباقة المجانية وتظهر قبل ميزاتها غير المتوفرة شرطة بدلاً من علامة صح -->
+      <!-- وباقة برو بإطار مميز مع زر الاشتراك الذي يفتح نموذج الدفع -->
       <div class="plan-grid">
         <article class="card plan-card">
           <h2 class="plan-name">Basic</h2>
@@ -44,12 +52,16 @@
       </div>
     </section>
 
-    <!-- الخطوة 2: الدفع لاشتراك Pro (نظام دفع تجريبي) -->
+    <!-- القسم الثاني الدفع التجريبي لاشتراك برو دون أي بوابة دفع حقيقية -->
     <section id="step-pay" hidden>
       <div class="card auth-card wide" style="margin-inline: auto;">
         <h1 class="page-title">الاشتراك في Pro <span class="badge-premium">★ Premium</span></h1>
         <p class="muted">10 دولارات لمدة شهر واحد، ويمكنك إلغاء الاشتراك في أي وقت من ملفك الشخصي.</p>
 
+        <!-- نموذج الدفع -->
+        <!-- نمنع المتصفح من حفظ بيانات البطاقة ونظهر لوحة أرقام في الجوال -->
+        <!-- الطول الأقصى لرقم البطاقة 19 لأنه يشمل المسافات -->
+        <!-- وحقل رمز الأمان مخفي المحتوى مثل كلمة المرور -->
         <form id="pay-form" novalidate>
           <div id="pay-error" class="form-error" hidden></div>
           <div class="form-group">
@@ -76,11 +88,12 @@
           </div>
         </form>
 
+        <!-- مكان رسالة نجاح الدفع القادمة من الخادم -->
         <div id="pay-success" class="form-success center" hidden></div>
       </div>
     </section>
 
-    <!-- الحرفي مشترك في Pro بالفعل -->
+    <!-- القسم الثالث يظهر إذا كان الحرفي مشتركاً في برو بالفعل مع تاريخ انتهاء الاشتراك -->
     <section id="step-active" hidden>
       <div class="card auth-card wide center" style="margin-inline: auto;">
         <h1 class="page-title">أنت مشترك في Pro <span class="badge-premium">★ Premium</span></h1>
@@ -94,6 +107,7 @@
 
   <script src="../static/js/api.js"></script>
   <script src="../static/js/main.js"></script>
+  <!-- ملف نموذج الدفع ويجب تحميله قبل ملف صفحات الحرفي لأنه يستخدمه -->
   <script src="../static/js/payment.js"></script>
   <script src="../static/js/craftsman.js"></script>
 </body>

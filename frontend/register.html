@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة إنشاء حساب جديد لعميل أو حرفي -->
+<!-- الحرفي ينتقل بعد التسجيل إلى صفحة اختيار الاشتراك -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +20,12 @@
       <h1>إنشاء حساب جديد</h1>
       <p class="muted center">اختر نوع الحساب ثم أكمل البيانات.</p>
 
+      <!-- نموذج التسجيل ويرسله ملف تسجيل الدخول وإنشاء الحساب إلى الخادم -->
       <form id="register-form" novalidate>
         <span class="label">نوع الحساب</span>
+        <!-- اختيار نوع الحساب بزرين يحملان نفس الاسم فلا يمكن اختيار إلا واحد منهما -->
+        <!-- خيار العميل مختار افتراضياً -->
+        <!-- وملف التنسيق يخفي الدائرة ويعرض كل خيار كبطاقة -->
         <div class="choice-grid">
           <label class="choice">
             <input type="radio" name="role" value="customer" checked>
@@ -38,7 +45,9 @@
 
         <div id="register-error" class="form-error" hidden></div>
 
-        <!-- البيانات المشتركة -->
+        <!-- البيانات المشتركة لكل الحسابات -->
+        <!-- الاسم والهاتف ثم البريد والمحافظة ثم كلمة المرور وتأكيدها -->
+        <!-- قائمة المحافظات يملؤها السكربت -->
         <h2 class="fieldset-title">البيانات الأساسية</h2>
         <div class="form-row">
           <div class="form-group">
@@ -72,7 +81,9 @@
           </div>
         </div>
 
-        <!-- بيانات الحرفي -->
+        <!-- بيانات الحرفي فقط وهي المهنة وسنوات الخبرة -->
+        <!-- مخفية ومعطلة حتى يختار المستخدم نوع حرفي -->
+        <!-- المجموعة المعطلة لا ترسل حقولها ولا يتم التحقق منها -->
         <fieldset id="craftsman-fields" hidden disabled>
           <h2 class="fieldset-title">بيانات الحرفي</h2>
           <div class="form-row">
@@ -85,6 +96,7 @@
               <input type="number" id="reg-experience" min="0" max="60" required>
             </div>
           </div>
+          <!-- حقل اسم الخدمة يظهر فقط عند اختيار الخدمات الأخرى من قائمة المهن -->
           <div class="form-group" id="other-service-group" hidden>
             <label for="reg-other-service">اسم الخدمة التي تقدمها</label>
             <input type="text" id="reg-other-service" maxlength="100" placeholder="مثال: دراي كلين، بنشر، تنظيف مكاتب">
@@ -92,6 +104,7 @@
           </div>
         </fieldset>
 
+        <!-- زر الإرسال ويتغير نصه عند اختيار نوع حرفي -->
         <button type="submit" class="btn btn-primary btn-block" id="register-submit">إنشاء الحساب</button>
       </form>
 

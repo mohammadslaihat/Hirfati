@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة الملف الشخصي للحرفي وهي صفحته الرئيسية بعد الدخول -->
+<!-- فيها حالة الاشتراك ونموذج تعديل البيانات ومعاينة مباشرة للملف -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- الصفحة خاصة بالحرفيين فقط ودالتها في ملف صفحات الحرفي -->
 <body data-role="craftsman" data-page="profile" data-root="../">
   <header id="site-header"></header>
 
@@ -16,7 +20,9 @@
     <h1 class="page-title">الملف الشخصي</h1>
     <p class="section-sub">هذه البيانات هي التي تظهر للعملاء عند تصفح الحرفيين.</p>
 
-    <!-- حالة الاشتراك الحالية -->
+    <!-- صندوق حالة الاشتراك ويظهر بعد تحميل البيانات -->
+    <!-- فيه نوع الاشتراك وتاريخ الانتهاء -->
+    <!-- وزر واحد يتغير نصه ووظيفته بين إلغاء الاشتراك والاشتراك في برو -->
     <section class="card sub-box" id="sub-box" hidden>
       <div>
         <span class="sub-label">حالة الاشتراك</span>
@@ -26,8 +32,10 @@
       <button type="button" class="btn btn-sm" id="sub-action"></button>
     </section>
 
+    <!-- تخطيط من عمودين النموذج والمعاينة وفي الجوال يصبحان تحت بعضهما -->
     <div class="split">
-      <!-- نموذج تعديل البيانات -->
+      <!-- نموذج تعديل الملف -->
+      <!-- كل الحقول تملأ من قاعدة البيانات عند فتح الصفحة وتحفظ في الخادم عند الإرسال -->
       <form class="card" id="profile-form" novalidate>
         <div id="profile-error" class="form-error" hidden></div>
 
@@ -52,6 +60,7 @@
             <input type="number" id="p-experience" min="0" max="60" required>
           </div>
         </div>
+        <!-- حقل اسم الخدمة يظهر فقط إذا كانت المهنة من الخدمات الأخرى -->
         <div class="form-group" id="p-other-profession-group" hidden>
           <label for="p-other-profession">اسم الخدمة التي تقدمها</label>
           <input type="text" id="p-other-profession" maxlength="100" placeholder="مثال: دراي كلين، بنشر، تنظيف مكاتب">
@@ -63,6 +72,7 @@
         </div>
         <div class="form-group">
           <span class="label">مناطق العمل</span>
+          <!-- مربعات اختيار المحافظات لمناطق العمل وينشئها السكربت -->
           <div class="check-grid" id="p-areas"></div>
         </div>
         <div class="form-group">
@@ -71,6 +81,8 @@
         </div>
         <div class="form-group">
           <span class="label">الخدمات التي تقدمها</span>
+          <!-- مربعات اختيار الخدمات الأساسية الإضافية -->
+          <!-- والمهنة الأساسية محددة ومعطلة دائماً -->
           <div class="check-grid" id="p-services"></div>
           <p class="hint">مهنتك الأساسية مضافة تلقائياً، ويمكنك اختيار خدمات إضافية.</p>
         </div>
@@ -84,7 +96,7 @@
         <button type="submit" class="btn btn-primary btn-block" id="profile-submit">حفظ الملف الشخصي</button>
       </form>
 
-      <!-- معاينة الملف كما يظهر للعملاء -->
+      <!-- المعاينة المباشرة وتتحدث مع كل تعديل لتعرض الملف كما سيراه العملاء -->
       <aside class="preview">
         <span class="preview-label">معاينة: هكذا يظهر ملفك للعملاء</span>
         <div class="card" id="profile-preview"></div>

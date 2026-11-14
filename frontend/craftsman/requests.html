@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة الطلبات الواردة للحرفي -->
+<!-- يقبل منها الحرفي الطلب ويرسل عرض السعر أو يرفضه مع ذكر السبب -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- صفحة خاصة بالحرفي ودالتها في ملف صفحات الحرفي -->
 <body data-role="craftsman" data-page="requests" data-root="../">
   <header id="site-header"></header>
 
@@ -16,6 +20,7 @@
     <h1 class="page-title">الطلبات</h1>
     <p class="section-sub">الطلبات المرسلة إليك من العملاء. اقبل الطلب وأرسل عرض السعر، أو ارفضه مع ذكر السبب.</p>
 
+    <!-- قائمة بطاقات الطلبات ويرسمها السكربت مرتبة حسب الحالة -->
     <div class="request-list" id="requests-list"></div>
   </main>
 

@@ -1,20 +1,27 @@
-/* =========================================================
-   حِرفتي — صفحات واجهة العميل
-   ========================================================= */
-
+// ملف صفحات العميل
+// يحمل في صفحات مجلد العميل فقط ولكل صفحة دالة في أسفل الملف
+// تعيد بطاقة خدمة واحدة فيها الرمز والاسم
+// والبطاقة رابط إلى صفحة الحرفيين مفلترة بهذه الخدمة
 function serviceCard(s) {
+  // القالب النهائي للبطاقة
+  // رقم الطلب والحالة وبيانات الطلب والوصف وعرض السعر إن وجد ثم الأزرار
+  // كل نص قادم من المستخدم يمر عبر دالة الحماية
   return `<a class="service-card" href="craftsmen.html?service=${s.id}">
             <span class="service-icon" aria-hidden="true">${serviceIcon(s.name)}</span>${esc(s.name)}
           </a>`;
 }
 
+// تعيد بطاقة جميع الخدمات الأخرى
+// تفتح الحرفيين الذين يقدمون أي خدمة من الخدمات الأخرى
 function allOthersCard() {
   return `<a class="service-card" href="craftsmen.html?service=other">
             <span class="service-icon" aria-hidden="true">${OTHERS_GROUP_ICON}</span>جميع الخدمات الأخرى
           </a>`;
 }
 
-/* تهيئة صندوق الفلترة وقراءة القيم الحالية من الرابط */
+// تجهز صندوق الفلترة
+// تملأ قائمتي الخدمة والمحافظة ثم تختار القيم الموجودة في الرابط
+// حتى يبقى الفلتر ظاهراً بعد البحث
 function initFilter(services) {
   const service = $('#filter-service');
   const gov = $('#filter-governorate');
@@ -24,18 +31,26 @@ function initFilter(services) {
   gov.value = getParam('gov');
 }
 
+// تعيد بطاقة طلب واحد في صفحة طلباتي
+// الأزرار والمحتوى في أسفل البطاقة يتغيران حسب حالة الطلب
 function customerRequestCard(r) {
   let actions = '';
+  // وصل عرض سعر فنعرض زري الموافقة والرفض
+  // كل زر يحمل نوع العملية ورقم الطلب لاستخدامهما عند الضغط
   if (r.status === 'quoted') {
     actions = `
       <div class="btn-row">
         <button type="button" class="btn btn-success" data-action="accept-offer" data-id="${r.id}">الموافقة على العرض</button>
         <button type="button" class="btn btn-danger" data-action="reject-offer" data-id="${r.id}">رفض العرض</button>
       </div>`;
+  // الطلب ينتظر رد الحرفي فنعرض رسالة انتظار
   } else if (r.status === 'pending') {
     actions = '<p class="muted small" style="margin:0">بانتظار رد الحرفي وإرسال عرض السعر.</p>';
+  // رفض الحرفي الطلب فنعرض سبب الرفض
   } else if (r.status === 'rejected') {
     actions = `<div class="note-box"><strong>سبب الرفض:</strong> ${esc(r.reject_reason)}</div>`;
+  // الطلب مكتمل ولم يقيم بعد فنعرض نموذج تقييم بخمس نجوم وتعليق اختياري
+  // أزرار الاختيار مخفية وتظهر على شكل نجوم بواسطة ملف التنسيق
   } else if (r.status === 'completed' && !r.reviewed) {
     actions = `
       <form class="inline-form review-form" data-id="${r.id}" novalidate>
@@ -51,6 +66,7 @@ function customerRequestCard(r) {
         </div>
         <button type="submit" class="btn btn-primary btn-sm">إرسال التقييم</button>
       </form>`;
+  // الطلب مكتمل وتم تقييمه فنعرض رسالة شكر بدلاً من النموذج
   } else if (r.status === 'completed' && r.reviewed) {
     actions = '<div class="note-box ok">شكراً لك، تم تقييم هذه الخدمة.</div>';
   }
@@ -73,18 +89,25 @@ function customerRequestCard(r) {
     </article>`;
 }
 
+// دوال صفحات العميل
 App.run({
+  // الصفحة الرئيسية للعميل
+  // نرسل طلبي الخدمات والحرفيين المميزين في نفس الوقت وننتظرهما معاً
+  // وهذا أسرع من إرسالهما واحداً بعد الآخر
   async home() {
     const [services, featured] = await Promise.all([Api.services(), Api.craftsmen({ featured: 1 })]);
     initFilter(services);
 
     const others = $('#other-services');
+    // شبكة الخدمات فيها بطاقات الخدمات الأساسية
+    // ثم زر الخدمات الأخرى الذي يفتح قسماً مخفياً فيه الخدمات الأخرى
     $('#services-grid').innerHTML = services.main.map(serviceCard).join('') +
       `<button type="button" class="service-card" id="other-toggle" aria-expanded="false" aria-controls="other-services">
          <span class="service-icon" aria-hidden="true">${OTHERS_GROUP_ICON}</span>خدمات أخرى
        </button>`;
     $('#other-services-grid').innerHTML = allOthersCard() + services.other.map(serviceCard).join('');
 
+    // عند الضغط على زر الخدمات الأخرى نظهر القسم أو نخفيه ونميز الزر
     const toggle = $('#other-toggle');
     toggle.addEventListener('click', () => {
       others.hidden = !others.hidden;
@@ -92,17 +115,23 @@ App.run({
       toggle.setAttribute('aria-expanded', String(!others.hidden));
     });
 
+    // قسم الحرفيين المميزين
+    // بطاقات كل مشتركي برو الفعالين القادمين من الخادم أو رسالة إذا لم يوجد أحد
     $('#featured-grid').innerHTML = featured.length
       ? featured.map(c => craftsmanCard(c)).join('')
       : emptyState('لا يوجد حرفيون مميزون حالياً.');
   },
 
+  // صفحة الخدمات وفيها الخدمات الأساسية والخدمات الأخرى ظاهرة مباشرة
   async services() {
     const services = await Api.services();
     $('#services-grid').innerHTML = services.main.map(serviceCard).join('');
     $('#other-services-grid').innerHTML = allOthersCard() + services.other.map(serviceCard).join('');
   },
 
+  // صفحة الحرفيين
+  // نجلب الحرفيين حسب الفلاتر الموجودة في الرابط ونعرضهم كبطاقات
+  // والخادم يرتبهم بحيث يظهر مشتركو برو أولاً
   async craftsmen() {
     const [services, list] = await Promise.all([
       Api.services(),
@@ -114,6 +143,9 @@ App.run({
       : emptyState('لا يوجد حرفيون مطابقون لبحثك. جرّب خدمة أو محافظة أخرى.');
   },
 
+  // صفحة ملف الحرفي
+  // نقرأ رقم الحرفي من الرابط ونجلب ملفه
+  // وإذا لم يوجد نعرض رسالة ونتوقف
   async 'craftsman-profile'() {
     let craftsman;
     try {
@@ -122,14 +154,19 @@ App.run({
       $('#profile-card').innerHTML = emptyState('لم يتم العثور على الحرفي. <a href="craftsmen.html">العودة إلى قائمة الحرفيين</a>');
       return;
     }
+    // عنوان تبويب المتصفح يصبح اسم الحرفي ثم نرسم ملفه الشخصي
     document.title = craftsman.name + ' | حِرفتي';
     $('#profile-view').innerHTML = profileViewHtml(craftsman);
 
+    // نافذة طلب عرض السعر
+    // نملأ قائمة المحافظات ونكتب اسم الحرفي ومهنته في أعلى النافذة
     const form = $('#quote-form');
     const error = $('#quote-error');
     fillGovernorateSelect($('#quote-governorate'), 'اختر المحافظة');
     $('#quote-modal-to').textContent = 'إلى: ' + craftsman.name + ' — ' + craftsman.profession;
 
+    // عند الضغط على زر طلب عرض السعر نفرغ النموذج
+    // ونختار محافظة العميل تلقائياً ثم نفتح النافذة
     $('#quote-btn').addEventListener('click', () => {
       form.reset();
       showFormError(error, '');
@@ -137,6 +174,8 @@ App.run({
       openModal('quote-modal');
     });
 
+    // عند إرسال الطلب نتحقق من الوصف والمحافظة والمنطقة
+    // ثم نرسله للخادم ونغلق النافذة ونعرض رسالة نجاح
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const description = $('#quote-description').value.trim();
@@ -157,10 +196,15 @@ App.run({
     });
   },
 
+  // صفحة الشكاوى
+  // نجلب طلبات العميل لاختيار الطلب المتعلق بالشكوى
+  // والطرف الآخر في الطلب هو الحرفي
   async complaints() {
     initComplaintForm(await Api.customerRequests(), r => r.craftsman_name);
   },
 
+  // صفحة الملف الشخصي وطلباتي
+  // نعرض بيانات العميل في العناصر المخصصة لها كنص عادي بشكل آمن
   async 'my-requests'() {
     const u = App.user;
     $('#customer-avatar').innerHTML = avatar(u.name, 'avatar-lg');
@@ -171,6 +215,8 @@ App.run({
 
     const list = $('#requests-list');
 
+    // تجلب الطلبات من الخادم وترسمها من جديد
+    // نستدعيها عند فتح الصفحة وبعد كل عملية قبول أو رفض أو تقييم
     async function render() {
       const requests = await Api.customerRequests();
       list.innerHTML = requests.length
@@ -179,6 +225,9 @@ App.run({
     }
     await render();
 
+    // مستمع واحد على القائمة كلها بدلاً من مستمع لكل زر
+    // لأن البطاقات ترسم من جديد بعد كل تحديث
+    // نحدد الزر الذي تم الضغط عليه ونوع العملية ثم ننفذها ونعيد رسم القائمة
     list.addEventListener('click', async e => {
       const btn = e.target.closest('[data-action]');
       if (!btn) return;
@@ -197,6 +246,8 @@ App.run({
       }
     });
 
+    // عند إرسال نموذج تقييم نحدد النموذج ونقرأ عدد النجوم المختار
+    // ثم نرسل التقييم والتعليق للخادم ونعيد رسم القائمة
     list.addEventListener('submit', async e => {
       const form = e.target.closest('.review-form');
       if (!form) return;

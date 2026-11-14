@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة البداية للزوار -->
+<!-- فيها تعريف بالمنصة وزر إنشاء حساب وزر تسجيل الدخول -->
+<!-- لغة الصفحة عربية واتجاهها من اليمين إلى اليسار -->
+<!-- هذا الملف يشرح الأجزاء المشتركة الموجودة في كل صفحات الموقع -->
 <head>
+  <!-- رأس الصفحة يحتوي معلومات لا تظهر مباشرة للمستخدم -->
+  <!-- الترميز يدعم الحروف العربية -->
   <meta charset="UTF-8">
+  <!-- عرض الصفحة يساوي عرض شاشة الجهاز وهذا ضروري لعمل التصميم على الجوال -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- العنوان الذي يظهر في تبويب المتصفح -->
   <title>حِرفتي | منصة الحرفيين في الأردن</title>
+  <!-- تحميل الخط العربي من خدمة الخطوط مع تجهيز الاتصال مسبقاً لتسريع التحميل -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- ربط ملف التنسيق الموحد -->
   <link rel="stylesheet" href="static/css/style.css">
 </head>
+<!-- جسم الصفحة وخصائصه يقرؤها ملف الدوال المشتركة -->
+<!-- الخاصية الأولى اسم الصفحة والثانية مسار المجلد الرئيسي -->
+<!-- هذه الصفحة لا تحتاج تسجيل دخول لذلك لا تحدد نوع حساب -->
 <body data-page="landing" data-root="">
 
+  <!-- المحتوى الرئيسي وفيه قسم التعريف بالمنصة -->
+  <!-- الشعار ثم العبارة التعريفية ثم الوصف ثم الأزرار -->
   <main class="auth-page">
     <section class="landing">
       <div class="landing-logo">حِرفتي</div>
@@ -26,8 +41,11 @@
     </section>
   </main>
 
+  <!-- التذييل فارغ هنا ويملؤه السكربت تلقائياً -->
   <footer id="site-footer"></footer>
 
+  <!-- ملفات السكربت في نهاية الصفحة حتى تكون كل العناصر قد حملت قبل تشغيلها -->
+  <!-- الترتيب مهم ملف الاتصال بالخادم ثم ملف الدوال المشتركة ثم ملف الصفحة إن وجد -->
   <script src="static/js/api.js"></script>
   <script src="static/js/main.js"></script>
 </body>

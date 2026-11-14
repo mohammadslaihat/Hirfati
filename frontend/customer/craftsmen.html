@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة الحرفيين -->
+<!-- البحث حسب الخدمة والمحافظة وعرض النتائج كبطاقات ومشتركو برو أولاً -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- صفحة خاصة بالعميل ودالتها في ملف صفحات العميل -->
 <body data-role="customer" data-page="craftsmen" data-root="../">
   <header id="site-header"></header>
 
@@ -16,6 +20,8 @@
     <h1 class="page-title">الحرفيون</h1>
     <p class="section-sub">تصفّح الحرفيين المسجلين في المنصة وافتح ملف من يناسبك.</p>
 
+    <!-- نموذج الفلترة يرسل إلى نفس الصفحة فتصبح الفلاتر جزءاً من الرابط -->
+    <!-- ثم يقرؤها السكربت ويطلب الحرفيين المطابقين من الخادم -->
     <form class="filter-box" id="filter-form">
       <div class="form-group">
         <label for="filter-service">نوع الخدمة</label>
@@ -28,6 +34,7 @@
       <button type="submit" class="btn btn-primary">بحث</button>
     </form>
 
+    <!-- مكان بطاقات الحرفيين أو رسالة عدم وجود نتائج -->
     <div class="grid grid-3 section" id="craftsmen-grid"></div>
   </main>
 

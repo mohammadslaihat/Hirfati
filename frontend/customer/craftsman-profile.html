@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة ملف حرفي واحد كما يراه العميل مع زر طلب عرض سعر -->
+<!-- رقم الحرفي يأتي في رابط الصفحة -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- صفحة خاصة بالعميل ودالتها في ملف صفحات العميل -->
 <body data-role="customer" data-page="craftsman-profile" data-root="../">
   <header id="site-header"></header>
 
   <main class="container page">
+    <!-- رابط العودة إلى قائمة الحرفيين -->
     <a href="craftsmen.html" class="back-link">→ العودة إلى الحرفيين</a>
 
+    <!-- بطاقة الملف ويملؤها السكربت بالاسم والهاتف والخبرة والخدمات والمناطق والتقييمات -->
     <div class="card" id="profile-card">
       <div id="profile-view"></div>
       <div class="profile-actions">
@@ -23,15 +29,19 @@
     </div>
   </main>
 
-  <!-- نموذج طلب عرض السعر -->
+  <!-- نافذة منبثقة لطلب عرض السعر وهي مخفية حتى يضغط العميل على الزر -->
+  <!-- خصائص الوصول تعرف قارئات الشاشة بأنها نافذة حوار وما عنوانها -->
   <div class="modal" id="quote-modal" hidden>
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
       <div class="modal-head">
         <h2 id="quote-modal-title">طلب عرض سعر</h2>
+        <!-- أي عنصر يحمل خاصية الإغلاق يغلق النافذة عند الضغط عليه -->
         <button type="button" class="modal-close" data-close-modal aria-label="إغلاق">×</button>
       </div>
       <p class="muted" id="quote-modal-to"></p>
 
+      <!-- نموذج الطلب فيه وصف المشكلة والمحافظة والمنطقة -->
+      <!-- ويرسله السكربت إلى الخادم لإنشاء الطلب -->
       <form id="quote-form" novalidate>
         <div id="quote-error" class="form-error" hidden></div>
         <div class="form-group">

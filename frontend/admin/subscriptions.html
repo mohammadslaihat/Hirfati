@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة مراقبة الاشتراكات في لوحة تحكم الأدمن -->
+<!-- تعرض الحرفيين المشتركين في برو مع تواريخ الاشتراك والانتهاء والإلغاء وسجل كل حرفي -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- الصفحة خاصة بالأدمن فقط ودالتها في ملف صفحات الأدمن -->
 <body data-role="admin" data-page="subscriptions" data-root="../">
   <header id="site-header"></header>
 
@@ -16,6 +20,8 @@
     <h1 class="page-title">مراقبة الاشتراكات</h1>
     <p class="section-sub">جميع الحرفيين المشتركين في Pro (فعال، ملغى، منتهي) مع تواريخ الاشتراك والإلغاء وسجل كل حرفي.</p>
 
+    <!-- تبويبات الفلترة -->
+    <!-- جميع مشتركي برو ثم الفعال ثم الملغى ثم المنتهي ثم من بقي على الاشتراك المجاني فقط -->
     <div class="tabs" id="tabs" role="tablist">
       <button type="button" class="tab active" data-filter="pro">جميع مشتركي Pro</button>
       <button type="button" class="tab" data-filter="active">فعال</button>
@@ -24,6 +30,7 @@
       <button type="button" class="tab" data-filter="basic">Basic فقط</button>
     </div>
 
+    <!-- جدول الاشتراكات ويرسمه السكربت وفي كل صف زر عرض التفاصيل -->
     <div class="table-wrap">
       <table>
         <thead id="table-head"></thead>
@@ -32,14 +39,17 @@
     </div>
   </main>
 
-  <!-- نافذة عرض التفاصيل -->
+  <!-- نافذة التفاصيل وهي أعرض من باقي النوافذ لأنها تحتوي جدول السجل -->
   <div class="modal" id="details-modal" hidden>
     <div class="modal-box modal-wide" role="dialog" aria-modal="true" aria-labelledby="details-title">
       <div class="modal-head">
         <h2 id="details-title">التفاصيل</h2>
+        <!-- زر إغلاق النافذة -->
         <button type="button" class="modal-close" data-close-modal aria-label="إغلاق">×</button>
       </div>
+      <!-- ملخص اشتراكات الحرفي -->
       <dl class="details-list" id="details-body"></dl>
+      <!-- جدول سجل كل دورات برو للحرفي ويملؤه السكربت -->
       <h3 class="history-title">سجل الاشتراكات</h3>
       <div id="history-body"></div>
     </div>

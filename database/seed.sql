@@ -1,12 +1,13 @@
--- =========================================================
--- حِرفتي (HIRFATI) — البيانات التجريبية
--- كلمة المرور لجميع الحسابات التجريبية: 123456 (مخزنة كـ hash)
--- =========================================================
-
+-- ملف البيانات التجريبية للعرض والاختبار
+-- ينفذ بعد ملف إنشاء الجداول
+-- كلمة المرور لجميع الحسابات التجريبية هي 123456
+-- وهي محفوظة بشكل مشفر كما يفعل الموقع عند التسجيل
+-- الأرقام محددة يدوياً حتى تكون العلاقات بين الجداول صحيحة
+-- ترتيب الإضافة مهم فالخدمات والمستخدمون أولاً ثم ما يعتمد عليهم
 SET NAMES utf8mb4;
 USE hirfati_db;
 
--- الخدمات الأساسية
+-- المهن الأساسية الثابتة التي تظهر في قائمة المهن وفي صفحة الخدمات
 INSERT INTO services (id, name, category) VALUES
   (1, 'كهربائي', 'main'),
   (2, 'سباك', 'main'),
@@ -17,7 +18,7 @@ INSERT INTO services (id, name, category) VALUES
   (7, 'بناء وترميم', 'main'),
   (8, 'فني أقفال', 'main');
 
--- خدمات أخرى أضافها حرفيون
+-- أمثلة على خدمات أخرى كأن الحرفيين كتبوها بأنفسهم
 INSERT INTO services (id, name, category) VALUES
   (9, 'بنشرجي', 'other'),
   (10, 'ونشات', 'other'),
@@ -25,6 +26,8 @@ INSERT INTO services (id, name, category) VALUES
   (12, 'ترحيل أثاث ومنازل', 'other');
 
 -- الحسابات
+-- الرقم 1 للأدمن ومن 2 إلى 7 للعملاء ومن 8 إلى 19 للحرفيين
+-- وجميع أرقام الهواتف أردنية
 INSERT INTO users (id, name, email, password, phone, role, governorate, created_at) VALUES
   (1, 'إدارة حِرفتي', 'admin@hirfati.jo', 'scrypt:32768:8:1$NVIGEX2XsOaauePZ$4b7b09020ac3be1b1588c583ebfa0d79f2c15e94e5311151d5a183a43ccf4a6da08a281a0ff82beebc377847859e9b9db811884ae200ff13c8ea2cbda7be36c0', '+962790000000', 'admin', 'amman', '2026-09-01'),
   (2, 'سارة المومني', 'sara@hirfati.jo', 'scrypt:32768:8:1$NVIGEX2XsOaauePZ$4b7b09020ac3be1b1588c583ebfa0d79f2c15e94e5311151d5a183a43ccf4a6da08a281a0ff82beebc377847859e9b9db811884ae200ff13c8ea2cbda7be36c0', '+962791234567', 'customer', 'amman', '2026-10-02'),
@@ -46,7 +49,8 @@ INSERT INTO users (id, name, email, password, phone, role, governorate, created_
   (18, 'رامي الدعجة', 'rami@hirfati.jo', 'scrypt:32768:8:1$NVIGEX2XsOaauePZ$4b7b09020ac3be1b1588c583ebfa0d79f2c15e94e5311151d5a183a43ccf4a6da08a281a0ff82beebc377847859e9b9db811884ae200ff13c8ea2cbda7be36c0', '+962776661199', 'craftsman', NULL, '2026-10-15'),
   (19, 'قاسم المعايطة', 'qasem@hirfati.jo', 'scrypt:32768:8:1$NVIGEX2XsOaauePZ$4b7b09020ac3be1b1588c583ebfa0d79f2c15e94e5311151d5a183a43ccf4a6da08a281a0ff82beebc377847859e9b9db811884ae200ff13c8ea2cbda7be36c0', '+962795553311', 'craftsman', NULL, '2026-10-18');
 
--- ملفات الحرفيين
+-- ملفات الحرفيين المهنية
+-- المهنة والخبرة والمحافظة ومناطق العمل والنبذة ونوع الاشتراك
 INSERT INTO craftsman_profiles (user_id, profession_id, experience_years, governorate, work_areas, bio, subscription_type) VALUES
   (8, 1, 12, 'amman', 'amman,zarqa,balqa', 'كهربائي منازل ومحلات تجارية بخبرة 12 سنة في عمّان وما حولها. ألتزم بالمواعيد وأستخدم مواد ذات جودة عالية مع ضمان على العمل.', 'pro'),
   (9, 2, 9, 'irbid', 'irbid,ajloun,jerash', 'سباك متخصص في تمديدات المياه والصرف الصحي وكشف التسربات. أخدم إربد والمناطق المجاورة.', 'pro'),
@@ -61,7 +65,7 @@ INSERT INTO craftsman_profiles (user_id, profession_id, experience_years, govern
   (18, 11, 4, 'amman', 'amman,zarqa,madaba', 'خدمات تنظيف المنازل والمكاتب بعد التشطيب وتنظيف السجاد والكنب.', 'basic'),
   (19, 9, 6, 'tafila', 'tafila,karak', 'بنشر متنقل: تصليح وتبديل الإطارات وفحص الضغط.', 'basic');
 
--- الخدمات التي يقدمها كل حرفي
+-- ربط كل حرفي بالخدمات التي يقدمها
 INSERT INTO craftsman_services (craftsman_id, service_id) VALUES
   (8, 1),
   (9, 2),
@@ -78,12 +82,16 @@ INSERT INTO craftsman_services (craftsman_id, service_id) VALUES
   (18, 11),
   (19, 9);
 
--- الاشتراكات (تواريخ Pro محسوبة من تاريخ إنشاء القاعدة حتى تبقى فعّالة)
+-- الاشتراكات
+-- تواريخ اشتراكات برو محسوبة من تاريخ إنشاء قاعدة البيانات
+-- تبدأ قبل أيام قليلة وتنتهي بعد شهر فتبقى فعالة مهما كان تاريخ التشغيل
 INSERT INTO subscriptions (craftsman_id, subscription_type, start_date, end_date, status) VALUES
   (8, 'pro', CURDATE() - INTERVAL 3 DAY, CURDATE() - INTERVAL 3 DAY + INTERVAL 1 MONTH, 'active'),
   (9, 'pro', CURDATE() - INTERVAL 4 DAY, CURDATE() - INTERVAL 4 DAY + INTERVAL 1 MONTH, 'active'),
   (10, 'pro', CURDATE() - INTERVAL 5 DAY, CURDATE() - INTERVAL 5 DAY + INTERVAL 1 MONTH, 'active'),
   (11, 'pro', CURDATE() - INTERVAL 6 DAY, CURDATE() - INTERVAL 6 DAY + INTERVAL 1 MONTH, 'active'),
+  -- مثال على اشتراك برو منته يتبعه اشتراك مجاني فعال
+  -- لعرض حالة منتهي في لوحة الأدمن
   (12, 'pro', '2026-08-25', '2026-09-25', 'expired'),
   (12, 'basic', '2026-09-25', NULL, 'active'),
   (13, 'basic', '2026-10-03', NULL, 'active'),
@@ -94,7 +102,7 @@ INSERT INTO subscriptions (craftsman_id, subscription_type, start_date, end_date
   (18, 'basic', '2026-10-15', NULL, 'active'),
   (19, 'basic', '2026-10-18', NULL, 'active');
 
--- طلبات تجريبية بحالات مختلفة
+-- طلبات تجريبية بحالات مختلفة لتجربة جميع الحالات في الصفحات
 INSERT INTO requests (id, customer_id, craftsman_id, service_id, description, location, status, reject_reason, created_at) VALUES
   (1, 2, 8, 1, 'انقطاع الكهرباء عن غرفتين في الشقة بشكل مفاجئ.', 'عمّان - خلدا', 'pending', NULL, '2026-11-12 10:15:00'),
   (2, 2, 8, 1, 'تركيب إنارة سقفية جديدة في الصالون.', 'عمّان - خلدا', 'quoted', NULL, '2026-11-09 18:20:00'),
@@ -106,7 +114,7 @@ INSERT INTO requests (id, customer_id, craftsman_id, service_id, description, lo
   (8, 4, 8, 1, 'صيانة لوحة الكهرباء الرئيسية في المحل.', 'عمّان - الشميساني', 'in_progress', NULL, '2026-11-08 13:00:00'),
   (9, 3, 11, 7, 'ترميم سور المنزل الخارجي.', 'إربد - الرمثا', 'quote_rejected', NULL, '2026-11-01 17:30:00');
 
--- عروض الأسعار
+-- عروض الأسعار للطلبات التي وصلت مرحلة العرض
 INSERT INTO offers (request_id, price, execution_time, execution_date, status, created_at) VALUES
   (2, 35, 'يوم واحد', '2026-11-18', 'pending', '2026-11-10 09:00:00'),
   (3, 20, 'ساعتان', '2026-11-14', 'accepted', '2026-11-07 15:00:00'),
@@ -115,7 +123,7 @@ INSERT INTO offers (request_id, price, execution_time, execution_date, status, c
   (8, 45, 'يوم واحد', '2026-11-15', 'accepted', '2026-11-08 19:00:00'),
   (9, 400, 'أسبوع', '2026-11-20', 'rejected', '2026-11-02 12:00:00');
 
--- التقييمات (متوسطها يعطي تقييم كل حرفي)
+-- تقييمات العملاء ومتوسطها يعطي تقييم كل حرفي
 INSERT INTO reviews (customer_id, craftsman_id, request_id, rating, comment, created_at) VALUES
   (4, 8, NULL, 5, NULL, '2026-10-25 12:00:00'),
   (5, 8, NULL, 5, 'راضٍ عن النتيجة.', '2026-10-02 12:00:00'),
@@ -186,7 +194,7 @@ INSERT INTO reviews (customer_id, craftsman_id, request_id, rating, comment, cre
   (4, 19, NULL, 5, 'عمل ممتاز ودقيق في الموعد.', '2026-10-07 12:00:00'),
   (5, 19, NULL, 4, 'محترف جداً وأسعاره مناسبة.', '2026-10-12 12:00:00');
 
--- الشكاوى
+-- شكاوى تجريبية بحالات مختلفة لصفحة الشكاوى في لوحة الأدمن
 INSERT INTO complaints (complainant_id, accused_id, complaint_details, status, created_at) VALUES
   (3, 8, 'تم رفض الطلب بعد يومين من الانتظار دون أي تواصل.', 'new', '2026-11-07 10:00:00'),
   (14, 2, 'العميلة غيّرت الموعد أكثر من مرة دون إشعار مسبق.', 'processing', '2026-11-10 14:00:00'),

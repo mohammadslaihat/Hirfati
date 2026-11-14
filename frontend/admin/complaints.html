@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- صفحة إدارة الشكاوى في لوحة تحكم الأدمن -->
+<!-- تعرض جميع الشكاوى من العملاء والحرفيين مع إمكانية تحديث حالة كل شكوى -->
+<!-- شرح الأجزاء المشتركة في رأس الصفحة موجود في صفحة البداية -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
+<!-- الصفحة خاصة بالأدمن فقط ودالتها في ملف صفحات الأدمن -->
 <body data-role="admin" data-page="complaints" data-root="../">
   <header id="site-header"></header>
 
@@ -16,6 +20,8 @@
     <h1 class="page-title">إدارة الشكاوى</h1>
     <p class="section-sub">جميع الشكاوى المرسلة من العملاء والحرفيين، مع إمكانية تحديث حالة كل شكوى.</p>
 
+    <!-- تبويبات الفلترة حسب حالة الشكوى -->
+    <!-- جميع الشكاوى أو الجديدة أو قيد المعالجة أو التي تمت معالجتها -->
     <div class="tabs" id="tabs" role="tablist">
       <button type="button" class="tab active" data-filter="all">جميع الشكاوى</button>
       <button type="button" class="tab" data-filter="new">جديدة</button>
@@ -23,6 +29,8 @@
       <button type="button" class="tab" data-filter="resolved">تمت المعالجة</button>
     </div>
 
+    <!-- جدول الشكاوى ويرسمه السكربت -->
+    <!-- وفي كل صف قائمة لتغيير حالة الشكوى وزر للتفاصيل -->
     <div class="table-wrap">
       <table>
         <thead id="table-head"></thead>
@@ -31,13 +39,15 @@
     </div>
   </main>
 
-  <!-- نافذة عرض التفاصيل -->
+  <!-- نافذة عرض تفاصيل الشكوى -->
   <div class="modal" id="details-modal" hidden>
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="details-title">
       <div class="modal-head">
         <h2 id="details-title">التفاصيل</h2>
+        <!-- زر إغلاق النافذة -->
         <button type="button" class="modal-close" data-close-modal aria-label="إغلاق">×</button>
       </div>
+      <!-- قائمة التفاصيل بعناوين الحقول وقيمها -->
       <dl class="details-list" id="details-body"></dl>
     </div>
   </div>

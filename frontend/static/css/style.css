@@ -1,18 +1,24 @@
-/* =========================================================
-   حِرفتي — ملف التنسيق الموحد لجميع الصفحات
-   ========================================================= */
-
+/* ملف التنسيق الموحد لجميع صفحات الموقع */
+/* كل قاعدة تتكون من محدد يختار العناصر ثم خصائص التنسيق */
+/* القسم التالي يعرف متغيرات عامة تستخدم في كل الملف */
+/* إذا أردنا تغيير لون الموقع نغيره هنا مرة واحدة */
 :root {
+  /* اللون الأساسي أزرق وهو لون الهوية والأزرار */
+  /* مع درجة أغمق عند المرور ودرجة فاتحة للخلفيات */
   --primary: #1d4e89;
   --primary-dark: #163b68;
   --primary-light: #e8f0fa;
+  /* اللون المميز برتقالي ذهبي لشارة بريميوم والنجوم وزر الاشتراك */
   --accent: #e8a33d;
   --accent-light: #fdf3e3;
+  /* ألوان النصوص والخطوط الفاصلة والخلفية العامة والبطاقات */
   --text: #1f2933;
   --muted: #6b7785;
   --line: #e1e6ec;
   --bg: #f5f7fa;
   --card: #ffffff;
+  /* ألوان الحالات */
+  /* الأخضر للنجاح والأحمر للرفض والأزرق للمعلومات والأصفر للانتظار */
   --success: #2f8a57;
   --success-light: #e5f4eb;
   --danger: #c0392b;
@@ -21,15 +27,20 @@
   --info-light: #e6f0fb;
   --warning: #b7791f;
   --warning-light: #fdf4e1;
+  /* استدارة الزوايا والظل الخفيف للبطاقات والخطوط المستخدمة بالترتيب */
   --radius: 12px;
   --shadow: 0 2px 10px rgba(16, 38, 66, 0.07);
   --font: 'Tajawal', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
+/* العرض المحدد لأي عنصر يشمل الحشو والإطار فيسهل حساب الأحجام */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* اتجاه الصفحة من اليمين إلى اليسار للغة العربية */
 html { direction: rtl; }
 
+/* جسم الصفحة عمود مرن بارتفاع الشاشة كاملة على الأقل */
+/* حتى يبقى التذييل أسفل الشاشة حتى لو كان المحتوى قصيراً */
 body {
   margin: 0;
   font-family: var(--font);
@@ -42,24 +53,32 @@ body {
   min-height: 100vh;
 }
 
+/* منع تمرير الصفحة عند فتح نافذة منبثقة */
 body.no-scroll { overflow: hidden; }
 
+/* المحتوى الرئيسي يأخذ المساحة المتبقية */
 main { flex: 1; }
 
+/* تنسيقات عامة للعناوين والفقرات والروابط والصور */
 h1, h2, h3 { line-height: 1.35; margin: 0 0 .5rem; }
 p { margin: 0 0 .75rem; }
 a { color: var(--primary); text-decoration: none; }
 img { max-width: 100%; }
+/* أي عنصر مخفي يبقى مخفياً دائماً ولا تظهره أي قاعدة أخرى */
+/* السكربت يظهر العناصر ويخفيها بتغيير هذه الخاصية */
 [hidden] { display: none !important; }
 
+/* الحاوية تحدد أقصى عرض للمحتوى وتضعه في المنتصف مع هامش على الجانبين */
 .container { width: 100%; max-width: 1140px; margin: 0 auto; padding-inline: 16px; }
+/* تنسيقات مساعدة للمسافات والنص الباهت والنص الصغير والتوسيط */
 .page { padding-block: 32px 48px; }
 .muted { color: var(--muted); }
 .small { font-size: .875rem; }
 .center { text-align: center; }
 
-/* ---------- الرأس والقائمة ---------- */
 
+/* قسم الشريط العلوي والقائمة */
+/* الشريط يبقى ثابتاً في أعلى الصفحة أثناء التمرير وفوق باقي العناصر */
 .site-header {
   background: var(--card);
   border-bottom: 1px solid var(--line);
@@ -68,14 +87,17 @@ img { max-width: 100%; }
   z-index: 50;
 }
 
+/* محتوى الشريط في صف أفقي مع توسيط عمودي ومسافة بين العناصر */
 .header-inner { display: flex; align-items: center; gap: 24px; min-height: 64px; }
 
+/* اسم الموقع في الشريط والوسم الصغير بجانبه في لوحة التحكم */
 .brand { font-size: 1.6rem; font-weight: 800; color: var(--primary); white-space: nowrap; }
 .brand-tag {
   font-size: .8rem; font-weight: 500; color: var(--accent);
   background: var(--accent-light); padding: 2px 10px; border-radius: 99px; vertical-align: middle;
 }
 
+/* روابط القائمة والرابط النشط بخلفية زرقاء فاتحة */
 .nav { display: flex; align-items: center; gap: 4px; flex: 1; }
 .nav > a {
   padding: 8px 12px; border-radius: 8px; color: var(--text); font-weight: 500; white-space: nowrap;
@@ -83,14 +105,19 @@ img { max-width: 100%; }
 .nav > a:hover { background: var(--bg); }
 .nav > a.active { background: var(--primary-light); color: var(--primary); }
 
+/* اسم المستخدم وزر الخروج يدفعان إلى نهاية الشريط */
 .nav-user { margin-inline-start: auto; display: flex; align-items: center; gap: 12px; }
 .nav-user-name { color: var(--muted); font-size: .9rem; }
 
+/* زر القائمة مخفي في الشاشات الكبيرة ويظهر في الجوال */
 .nav-toggle {
   display: none; margin-inline-start: auto; background: none; border: 1px solid var(--line);
   border-radius: 8px; font-size: 1.3rem; padding: 4px 12px; cursor: pointer; color: var(--text);
 }
 
+/* قواعد تطبق فقط عندما يكون عرض الشاشة 900 بكسل أو أقل */
+/* تختفي القائمة وتصبح عموداً منسدلاً أسفل الشريط */
+/* وتظهر عندما يضيف السكربت تنسيق الفتح */
 @media (max-width: 900px) {
   .nav-toggle { display: block; }
   .nav {
@@ -102,20 +129,25 @@ img { max-width: 100%; }
   .nav-user { margin: 8px 0 0; padding-top: 12px; border-top: 1px solid var(--line); justify-content: space-between; }
 }
 
+/* التذييل في أسفل الصفحة بنص صغير في المنتصف */
 .site-footer {
   background: var(--card); border-top: 1px solid var(--line);
   color: var(--muted); font-size: .9rem; padding-block: 20px; text-align: center;
 }
 
-/* ---------- الأزرار ---------- */
 
+/* قسم الأزرار */
+/* الشكل الأساسي للزر مع توسيط المحتوى وزوايا مستديرة وانتقال لوني سلس */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   font-family: inherit; font-size: 1rem; font-weight: 700;
   padding: 10px 20px; border-radius: 10px; border: 1px solid transparent;
   cursor: pointer; transition: background .15s, border-color .15s, color .15s; text-align: center;
 }
+/* الزر المعطل أثناء انتظار الخادم يصبح باهتاً */
 .btn:disabled { opacity: .6; cursor: not-allowed; }
+/* ألوان الأزرار */
+/* الأساسي أزرق والمميز برتقالي والمحدد بإطار والنجاح أخضر والخطر أحمر والشفاف بلا خلفية */
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-dark); }
 .btn-accent { background: var(--accent); color: #fff; }
@@ -128,46 +160,56 @@ img { max-width: 100%; }
 .btn-danger:hover { background: var(--danger-light); }
 .btn-ghost { background: transparent; color: var(--muted); border-color: var(--line); }
 .btn-ghost:hover { background: var(--bg); }
+/* أحجام الأزرار صغير وكبير وبعرض كامل */
 .btn-sm { padding: 6px 14px; font-size: .9rem; }
 .btn-lg { padding: 14px 28px; font-size: 1.1rem; }
 .btn-block { width: 100%; }
+/* صف أزرار ينتقل إلى السطر التالي عند ضيق المساحة */
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
 
-/* ---------- البطاقات والعناوين ---------- */
 
+/* قسم البطاقات والعناوين */
+/* البطاقة بخلفية بيضاء وإطار رفيع وزوايا مستديرة وظل خفيف */
 .card {
   background: var(--card); border: 1px solid var(--line);
   border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px;
 }
 
+/* مسافات وأحجام عناوين الأقسام والصفحات */
 .section { margin-top: 48px; }
 .section-title { font-size: 1.5rem; margin-bottom: 4px; }
 .section-sub { color: var(--muted); margin-bottom: 20px; }
 .page-title { font-size: 1.8rem; margin-bottom: 4px; }
 
+/* الشبكة تضع أكبر عدد من الأعمدة بحيث لا يقل عرض العمود عن حد معين */
+/* فيتغير عدد الأعمدة تلقائياً حسب عرض الشاشة */
 .grid { display: grid; gap: 20px; }
 .grid-2 { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 .grid-4 { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 
+/* في الشاشات الصغيرة جداً تصبح الشبكة عموداً واحداً */
 @media (max-width: 400px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
 
-/* ---------- صفحة البداية والدخول ---------- */
 
+/* قسم صفحة البداية وصفحات الدخول */
+/* المحتوى في منتصف الشاشة أفقياً وعمودياً مع خلفية متدرجة */
 .auth-page {
   flex: 1; display: flex; align-items: center; justify-content: center;
   padding: 40px 16px;
   background: linear-gradient(160deg, var(--primary-light), var(--bg) 60%);
 }
 
+/* صفحة البداية بالشعار الكبير والوصف والأزرار في المنتصف */
 .landing { text-align: center; max-width: 620px; }
 .landing-logo { font-size: 3.5rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
 .landing-slogan { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
 .landing p { color: var(--muted); font-size: 1.05rem; }
 .landing .btn-row { justify-content: center; margin-top: 28px; }
 
+/* بطاقة نموذج الدخول والنسخة الأعرض لنموذج التسجيل */
 .auth-card { width: 100%; max-width: 480px; }
 .auth-card.wide { max-width: 680px; }
 .auth-card .brand { display: block; text-align: center; margin-bottom: 4px; }
@@ -175,14 +217,18 @@ img { max-width: 100%; }
 .auth-switch { text-align: center; margin-top: 16px; color: var(--muted); }
 
 
-/* ---------- النماذج ---------- */
-
+/* قسم النماذج */
+/* كل حقل مع عنوانه داخل مجموعة */
+/* صف الحقول يضع حقلين أو ثلاثة بجانب بعضها */
 .form-group { margin-bottom: 16px; }
 .form-group label, .label { display: block; font-weight: 700; margin-bottom: 6px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .form-row-3 { grid-template-columns: 2fr 1fr 1fr; }
+/* في الجوال تصبح الحقول تحت بعضها */
 @media (max-width: 560px) { .form-row, .form-row-3 { grid-template-columns: 1fr; } }
 
+/* تنسيق موحد لكل الحقول */
+/* عند التركيز يتغير لون الإطار مع هالة زرقاء */
 input, select, textarea {
   width: 100%; font-family: inherit; font-size: 1rem; color: var(--text);
   padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
@@ -194,6 +240,7 @@ textarea { resize: vertical; min-height: 110px; }
 input[type="checkbox"], input[type="radio"] { width: auto; }
 input[dir="ltr"] { text-align: right; }
 
+/* النص التوضيحي تحت الحقل وصندوق رسالة الخطأ وصندوق رسالة النجاح */
 .hint { font-size: .85rem; color: var(--muted); margin-top: 4px; }
 .form-error {
   background: var(--danger-light); color: var(--danger);
@@ -204,13 +251,16 @@ input[dir="ltr"] { text-align: right; }
   padding: 10px 14px; border-radius: 10px; margin-top: 16px; font-weight: 500;
 }
 
+/* مجموعة الحقول دون إطار وعنوانها بخط عريض وخط سفلي */
 fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .fieldset-title {
   font-size: 1.05rem; font-weight: 800; padding-bottom: 8px; margin: 8px 0 16px;
   border-bottom: 1px solid var(--line); width: 100%;
 }
 
-/* بطاقات الاختيار (نوع الحساب / الاشتراك) */
+/* بطاقات الاختيار مثل نوع الحساب في صفحة التسجيل */
+/* زر الاختيار مخفي فوق البطاقة كلها */
+/* والبطاقة التي تلي الزر المختار تتلون بالأزرق */
 .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 @media (max-width: 400px) { .choice-grid { grid-template-columns: 1fr; } }
 .choice { position: relative; cursor: pointer; }
@@ -224,6 +274,7 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .choice input:checked + .choice-body { border-color: var(--primary); background: var(--primary-light); }
 .choice input:focus-visible + .choice-body { box-shadow: 0 0 0 3px var(--primary-light); }
 
+/* شبكة مربعات الاختيار لمناطق العمل والخدمات في ملف الحرفي */
 .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
 .check-item {
   display: flex; align-items: center; gap: 8px; border: 1px solid var(--line);
@@ -231,8 +282,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 }
 
 
-/* ---------- الصفحة الرئيسية للعميل ---------- */
-
+/* قسم الصفحة الرئيسية للعميل */
+/* القسم العلوي الملون بخلفية زرقاء متدرجة ونص أبيض في المنتصف */
 .hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff; border-radius: 0 0 24px 24px; padding: 56px 0 72px; text-align: center;
@@ -241,6 +292,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .hero p { font-size: 1.15rem; opacity: .9; }
 @media (max-width: 560px) { .hero h1 { font-size: 1.6rem; } .hero { padding: 40px 0 64px; } }
 
+/* صندوق البحث والفلترة بثلاثة أعمدة للخدمة والمحافظة وزر البحث */
+/* الصندوق الذي يلي القسم الملون يرتفع للأعلى ليتداخل معه */
 .filter-box {
   display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end;
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
@@ -251,7 +304,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .filter-box label { text-align: right; }
 @media (max-width: 700px) { .filter-box { grid-template-columns: 1fr; } }
 
-/* بطاقات الخدمات */
+/* بطاقة الخدمة فيها الرمز فوق الاسم */
+/* وعند المرور ترتفع قليلاً ويتلون إطارها */
 .service-card {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
@@ -262,13 +316,15 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .service-card.active { border-color: var(--primary); background: var(--primary-light); }
 .service-icon { font-size: 2rem; line-height: 1; }
 
+/* قسم الخدمات الأخرى المخفي في الصفحة الرئيسية */
 .sub-services {
   margin-top: 16px; padding: 16px; background: var(--primary-light);
   border-radius: var(--radius);
 }
 .sub-services h3 { font-size: 1.05rem; }
 
-/* بطاقة الحرفي */
+/* بطاقة الحرفي عمود فيه الرأس وقائمة المعلومات والزر */
+/* كل سطر معلومات فيه العنوان على جهة والقيمة على الجهة الأخرى */
 .craftsman-card { display: flex; flex-direction: column; gap: 14px; }
 .craftsman-card-head { display: flex; align-items: center; gap: 12px; }
 .craftsman-name { font-size: 1.1rem; margin: 0; }
@@ -281,6 +337,7 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .meta-list li:last-child { border-bottom: none; }
 .meta-list li > span:first-child { color: var(--muted); }
 
+/* الصورة الرمزية دائرة فيها أول حرف من الاسم في المنتصف */
 .avatar {
   width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%;
   background: var(--primary-light); color: var(--primary);
@@ -289,17 +346,22 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 }
 .avatar-lg { width: 80px; height: 80px; font-size: 2.1rem; }
 
+/* شارة بريميوم بلون ذهبي وزوايا دائرية بالكامل */
 .badge-premium {
   display: inline-block; vertical-align: middle; font-size: .75rem; font-weight: 700;
   color: #8a5a10; background: var(--accent-light); border: 1px solid var(--accent);
   border-radius: 99px; padding: 0 8px; line-height: 1.7; white-space: nowrap;
 }
 
+/* وسم الخدمات الأخرى بجانب اسم المهنة */
 .other-tag {
   display: inline-block; vertical-align: middle; font-size: .72rem; font-weight: 700;
   color: var(--primary); background: var(--primary-light); border-radius: 99px; padding: 0 8px; line-height: 1.8;
 }
 
+/* النجوم تكتب كنص من خمس نجوم */
+/* وتلون بخلفية متدرجة تتوقف عند نسبة التقييم القادمة من السكربت */
+/* فيتلون جزء من النجوم حسب التقييم */
 .stars { display: inline-block; font-size: 1.05rem; letter-spacing: 1px; line-height: 1; vertical-align: middle; }
 .stars::before {
   content: '★★★★★';
@@ -309,7 +371,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .rating { display: inline-flex; align-items: center; gap: 6px; }
 .rating-num { font-size: .95rem; }
 
-/* كيف تعمل المنصة */
+/* قسم كيف تعمل المنصة */
+/* عداد يكتب رقم كل خطوة تلقائياً داخل دائرة برتقالية */
 .steps { counter-reset: step; }
 .step { position: relative; padding-top: 28px; }
 .step::before {
@@ -323,8 +386,9 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .step h3 { font-size: 1.1rem; }
 .step p { color: var(--muted); margin: 0; }
 
-/* ---------- ملف الحرفي ---------- */
 
+/* قسم ملف الحرفي */
+/* الرأس وشبكة المعلومات والأقسام والوسوم والتقييمات */
 .profile-head { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; flex-wrap: wrap; }
 .profile-name { font-size: 1.6rem; margin: 0; }
 .profile-head .muted { margin: 0; }
@@ -348,7 +412,9 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 
 .back-link { display: inline-block; margin-bottom: 16px; font-weight: 500; }
 
-/* تخطيط صفحة الحرفي: نموذج + معاينة */
+/* صفحة ملف الحرفي بعمودين للنموذج والمعاينة */
+/* المعاينة تبقى ظاهرة أثناء تمرير النموذج */
+/* وفي الشاشات الأصغر يصبح التخطيط عموداً واحداً */
 .split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 .split .preview { position: sticky; top: 84px; }
 @media (max-width: 960px) { .split { grid-template-columns: 1fr; } .split .preview { position: static; } }
@@ -357,8 +423,9 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
   background: var(--accent-light); padding: 2px 12px; border-radius: 99px; margin-bottom: 14px;
 }
 
-/* ---------- الاشتراك ---------- */
 
+/* قسم الاشتراك */
+/* صندوق حالة الاشتراك في ملف الحرفي فيه الحالة على جهة والزر على الجهة الأخرى */
 .sub-box {
   display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   padding: 14px 20px; margin-bottom: 20px;
@@ -367,6 +434,7 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .sub-label { color: var(--muted); font-size: .9rem; }
 .sub-status { font-size: 1.1rem; }
 
+/* بطاقات الباقتين في صفحة الاشتراك وبطاقة برو بإطار برتقالي مميز */
 .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 860px; }
 .plan-card { display: flex; flex-direction: column; gap: 12px; }
 .plan-card.plan-pro { border: 2px solid var(--accent); }
@@ -374,23 +442,28 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .plan-price { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin: 0; }
 .plan-features { list-style: none; margin: 0; padding: 0; flex: 1; }
 .plan-features li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+/* علامة صح قبل كل ميزة متوفرة وشرطة قبل الميزة غير المتوفرة */
 .plan-features li::before { content: '✓'; color: var(--success); font-weight: 800; margin-inline-end: 8px; }
 .plan-features li.no::before { content: '–'; color: var(--muted); }
 .plan-features li:last-child { border-bottom: none; }
+/* ملاحظة باقة برو بخلفية ذهبية فاتحة */
 .plan-note {
   margin: 0; font-size: .9rem; color: #8a5a10; background: var(--accent-light);
   border-radius: 10px; padding: 10px 12px;
 }
 
+/* رسالة نجاح الدفع */
 #pay-success { font-size: 1.05rem; }
 
+/* نافذة التأكيد بنص في المنتصف وأزرار بعرض متساو */
 .confirm-box { max-width: 440px; text-align: center; }
 .confirm-box p { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
 .confirm-box .btn-row { justify-content: center; }
 .confirm-box .btn { min-width: 100px; }
 
-/* ---------- الطلبات ---------- */
 
+/* قسم الطلبات */
+/* بطاقة الطلب فيها الرأس وحقول البيانات في شبكة والوصف في صندوق رمادي */
 .request-list { display: grid; gap: 16px; }
 .request-card { display: grid; gap: 12px; }
 .request-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
@@ -400,6 +473,7 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .request-desc { background: var(--bg); border-radius: 10px; padding: 10px 14px; margin: 0; }
 .request-desc span { display: block; color: var(--muted); font-size: .85rem; }
 
+/* صندوق عرض السعر بلون أزرق فاتح */
 .quote-box {
   border: 1px solid var(--info); background: var(--info-light);
   border-radius: 10px; padding: 12px 14px;
@@ -407,11 +481,15 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .quote-box h4 { margin: 0 0 6px; font-size: 1rem; color: var(--info); }
 .quote-box .request-fields div span { color: #4a5a6a; }
 
+/* صندوق ملاحظة أحمر لسبب الرفض وأخضر لرسالة النجاح */
 .note-box { border-radius: 10px; padding: 10px 14px; background: var(--danger-light); color: var(--danger); }
 .note-box.ok { background: var(--success-light); color: var(--success); }
 
+/* النماذج داخل بطاقات الطلبات مع خط فاصل متقطع */
 .inline-form { border-top: 1px dashed var(--line); padding-top: 14px; }
 
+/* شارة الحالة الدائرية */
+/* والتنسيقات التي تليها تحدد لون كل حالة */
 .status {
   display: inline-block; font-size: .85rem; font-weight: 700; padding: 2px 12px;
   border-radius: 99px; white-space: nowrap;
@@ -423,6 +501,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .st-rejected { background: var(--danger-light);  color: var(--danger); }
 
 /* اختيار النجوم في التقييم */
+/* أزرار الاختيار مخفية والنجوم هي عناوينها */
+/* عكس ترتيب العرض يجعل النجمة المختارة وما قبلها تتلون معاً */
 .star-input { position: relative; display: inline-flex; flex-direction: row-reverse; justify-content: flex-end; gap: 2px; }
 .star-input input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .star-input label { font-size: 1.8rem; color: #d5dbe2; cursor: pointer; margin: 0; line-height: 1; }
@@ -431,8 +511,9 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 .star-input input:checked ~ label { color: var(--accent); }
 .star-input input:focus-visible + label { outline: 2px solid var(--primary); border-radius: 4px; }
 
-/* ---------- التبويبات والجداول (الأدمن) ---------- */
 
+/* قسم التبويبات والجداول في لوحة الأدمن */
+/* التبويبات أزرار دائرية والتبويب النشط بخلفية زرقاء */
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .tab {
   font-family: inherit; font-size: .95rem; font-weight: 700; cursor: pointer;
@@ -441,6 +522,8 @@ fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
 }
 .tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
+/* الجدول يمكن تمريره أفقياً في الجوال بدلاً من خروجه عن الشاشة */
+/* ونحدد عرضاً أدنى حتى لا تنضغط الأعمدة */
 .table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 table { width: 100%; border-collapse: collapse; min-width: 720px; }
 th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid var(--line); vertical-align: middle; }
@@ -449,14 +532,18 @@ tr:last-child td { border-bottom: none; }
 td select { min-width: 150px; padding: 6px 10px; }
 td .sub { display: block; color: var(--muted); font-size: .82rem; }
 
+/* قائمة التفاصيل في النوافذ بعمود للعنوان وعمود للقيمة */
+/* وفي الجوال تصبح تحت بعضها */
 .details-list { display: grid; gap: 10px; margin: 0; }
 .details-list div { display: grid; grid-template-columns: 140px 1fr; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
 .details-list dt { color: var(--muted); }
 .details-list dd { margin: 0; font-weight: 500; }
 @media (max-width: 480px) { .details-list div { grid-template-columns: 1fr; gap: 0; } }
 
-/* ---------- النوافذ المنبثقة والتنبيهات ---------- */
 
+/* قسم النوافذ المنبثقة والتنبيهات */
+/* النافذة تغطي الشاشة كلها بخلفية داكنة شفافة */
+/* والصندوق في المنتصف بارتفاع أقصى مع تمرير داخلي إذا طال المحتوى */
 .modal {
   position: fixed; inset: 0; z-index: 100; background: rgba(15, 25, 40, .5);
   display: flex; align-items: center; justify-content: center; padding: 16px;
@@ -467,14 +554,19 @@ td .sub { display: block; color: var(--muted); font-size: .82rem; }
 }
 .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; }
 .modal-head h2 { margin: 0; font-size: 1.25rem; }
+/* النافذة العريضة لتفاصيل الاشتراكات وجدول سجل الدورات */
 .modal-box.modal-wide { max-width: 860px; }
 .history-title { font-size: 1.05rem; margin: 22px 0 10px; }
 .history-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
 .history-wrap table { min-width: 640px; }
 .history-wrap th, .history-wrap td { padding: 8px 10px; font-size: .9rem; }
 
+/* زر إغلاق النافذة */
 .modal-close { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--muted); line-height: 1; }
 
+/* رسالة التنبيه ثابتة أسفل منتصف الشاشة ومخفية في البداية */
+/* تظهر بحركة انتقال عندما يضيف السكربت تنسيق الظهور */
+/* ولا تعترض النقرات أثناء إخفائها */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 20px);
   background: var(--text); color: #fff; padding: 12px 22px; border-radius: 10px;
@@ -485,6 +577,7 @@ td .sub { display: block; color: var(--muted); font-size: .82rem; }
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 
+/* صندوق رسالة عدم وجود بيانات بإطار متقطع */
 .empty {
   text-align: center; color: var(--muted); background: var(--card);
   border: 1px dashed var(--line); border-radius: var(--radius); padding: 40px 16px;

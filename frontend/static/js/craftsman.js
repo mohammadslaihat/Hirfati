@@ -1,12 +1,19 @@
-/* =========================================================
-   حِرفتي — صفحات واجهة الحرفي
-   ========================================================= */
-
+// ملف صفحات الحرفي
+// يحمل في صفحات مجلد الحرفي فقط
+// ترتيب عرض الطلبات في صفحة الحرفي
+// الطلبات الجديدة التي تحتاج رداً تظهر أولاً
 const STATUS_ORDER = ['pending', 'quoted', 'in_progress', 'completed', 'rejected', 'quote_rejected'];
 
+// تعيد بطاقة طلب في صفحة الطلبات للحرفي
+// والأزرار تتغير حسب حالة الطلب
 function craftsmanRequestCard(r) {
   let actions = '';
 
+  // طلب جديد فنعرض زري قبول الطلب ورفض الطلب
+  // ومعهما نموذجان مخفيان
+  // نموذج عرض السعر بالتكلفة والمدة والموعد ونموذج سبب الرفض
+  // الضغط على أحد الزرين يظهر النموذج المناسب
+  // حقل التاريخ لا يسمح باختيار تاريخ في الماضي
   if (r.status === 'pending') {
     actions = `
       <div class="btn-row" data-buttons="${r.id}">
@@ -46,18 +53,24 @@ function craftsmanRequestCard(r) {
           <button type="button" class="btn btn-ghost" data-action="cancel" data-id="${r.id}">إلغاء</button>
         </div>
       </form>`;
+  // تم إرسال العرض وننتظر رد العميل
   } else if (r.status === 'quoted') {
     actions = '<p class="muted small" style="margin:0">تم إرسال عرض السعر، بانتظار موافقة العميل.</p>';
+  // الطلب قيد التنفيذ فنعرض زر تم إنجاز الخدمة
   } else if (r.status === 'in_progress') {
     actions = `<div class="btn-row">
       <button type="button" class="btn btn-success" data-action="complete" data-id="${r.id}">تم إنجاز الخدمة</button>
     </div>`;
+  // الطلب مرفوض فنعرض سبب الرفض
   } else if (r.status === 'rejected') {
     actions = `<div class="note-box"><strong>سبب الرفض:</strong> ${esc(r.reject_reason)}</div>`;
+  // العميل رفض عرض السعر
   } else if (r.status === 'quote_rejected') {
     actions = '<div class="note-box">قام العميل برفض عرض السعر.</div>';
   }
 
+  // القالب النهائي للبطاقة
+  // بيانات الطلب وعرض السعر المرسل إن وجد ثم الأزرار
   return `
     <article class="card request-card">
       <div class="request-top">
@@ -76,18 +89,25 @@ function craftsmanRequestCard(r) {
     </article>`;
 }
 
+// دوال صفحات الحرفي
 App.run({
+  // صفحة الملف الشخصي للحرفي
+  // نموذج تعديل البيانات ومعاينة مباشرة للملف وصندوق حالة الاشتراك
   async profile() {
     const form = $('#profile-form');
     const error = $('#profile-error');
     const submitBtn = $('#profile-submit');
 
+    // نجلب الخدمات وملف الحرفي وحالة اشتراكه في نفس الوقت
     const [services, initial, subscriptionInfo] = await Promise.all([
       Api.services(), Api.craftsmanProfile(), Api.subscription()
     ]);
     let profile = initial;
+    // كائن يربط رقم كل خدمة أساسية بالخدمة نفسها للوصول السريع
     const mainById = Object.fromEntries(services.main.map(s => [String(s.id), s]));
 
+    // تعبئة القوائم بالمهن والمحافظات
+    // وإنشاء مربعات اختيار لمناطق العمل والخدمات الإضافية
     fillProfessionSelect($('#p-profession'), services.main);
     fillGovernorateSelect($('#p-governorate'), 'اختر المحافظة');
     $('#p-areas').innerHTML = GOVERNORATES.map(g => `
@@ -95,7 +115,9 @@ App.run({
     $('#p-services').innerHTML = services.main.map(s => `
       <label class="check-item"><input type="checkbox" name="services" value="${s.id}"> ${esc(s.name)}</label>`).join('');
 
-    /* تعبئة النموذج بالبيانات المحفوظة في قاعدة البيانات */
+    // تضع قيم الملف المحفوظ في حقول النموذج
+    // وتحدد مربعات مناطق العمل والخدمات الموجودة في الملف
+    // والخدمات الأخرى تكتب في حقل نصي واحد مفصولة بفواصل
     function fillForm(p) {
       $('#p-name').value = p.name;
       $('#p-phone').value = p.phone;
@@ -112,8 +134,11 @@ App.run({
         .filter(s => s.category === 'other' && s.id !== p.profession_id).map(s => s.name).join('، ');
     }
 
+    // تقسم النص إلى أسماء عند الفاصلة العربية أو الإنجليزية
+    // وتحذف المسافات والقيم الفارغة
     const splitNames = text => text.split(/[,،]/).map(s => s.trim()).filter(Boolean);
 
+    // تقرأ كل قيم النموذج في كائن بنفس أسماء الحقول التي يتوقعها الخادم
     function readForm() {
       const profession = $('#p-profession').value;
       return {
@@ -130,7 +155,9 @@ App.run({
       };
     }
 
-    /* المهنة الأساسية تبقى ضمن الخدمات دائماً */
+    // المهنة الأساسية تبقى ضمن الخدمات دائماً
+    // نحدد مربعها ونعطله حتى لا يمكن إلغاؤه
+    // ونظهر حقل اسم الخدمة فقط إذا كانت المهنة من الخدمات الأخرى
     function syncProfessionCheckbox() {
       const value = $('#p-profession').value;
       $all('input[name="services"]').forEach(cb => {
@@ -141,16 +168,21 @@ App.run({
       $('#p-other-profession-group').hidden = value !== 'other';
     }
 
-    /* معاينة الملف كما سيظهر للعملاء */
+    // المعاينة المباشرة للملف كما سيظهر للعملاء
+    // نبني نسخة من الملف من قيم النموذج الحالية
+    // ونرسمها بنفس الدالة التي تعرض الملف للعميل
     function updatePreview() {
       const f = readForm();
       const isOther = f.profession === 'other';
       const main = mainById[f.profession];
       const professionName = isOther ? f.other_service : (main ? main.name : '');
+      // قائمة أسماء الخدمات وهي المهنة ثم الخدمات الأساسية المختارة ثم الأخرى المكتوبة
+      // مع حذف القيم الفارغة والمكررة
       const serviceNames = [professionName]
         .concat(f.main_services.map(id => mainById[String(id)]?.name))
         .concat(f.other_services)
         .filter((n, i, arr) => n && arr.indexOf(n) === i);
+      // ننسخ كل خصائص الملف المحفوظ ثم نستبدل ما عدله الحرفي في النموذج
       $('#profile-preview').innerHTML = profileViewHtml({
         ...profile,
         name: f.name, phone: f.phone, bio: f.bio, governorate: f.governorate, work_areas: f.work_areas,
@@ -160,9 +192,15 @@ App.run({
       });
     }
 
-    /* ---------- صندوق حالة الاشتراك ---------- */
+    // قسم صندوق حالة الاشتراك
+    // نحفظ آخر حالة اشتراك وصلت من الخادم
     let subInfo = subscriptionInfo;
 
+    // تعرض حالة الاشتراك
+    // برو مع شارة بريميوم وتاريخ الانتهاء أو الاشتراك المجاني
+    // الزر يتغير حسب الحالة
+    // إلغاء الاشتراك لمشترك برو والاشتراك في برو للمشترك المجاني
+    // ونحفظ في الزر العملية المطلوبة عند الضغط
     function renderSubscription() {
       const sub = subInfo.subscription || { subscription_type: 'basic' };
       const isPro = sub.subscription_type === 'pro';
@@ -177,20 +215,25 @@ App.run({
       updatePreview();
     }
 
+    // عند الضغط على زر الاشتراك
     $('#sub-action').addEventListener('click', async e => {
       const btn = e.currentTarget;
       try {
+        // عند الإلغاء نسأل للتأكيد وإذا كانت الإجابة لا نتوقف
+        // وعند نعم نرسل طلب الإلغاء ونعرض الحالة الجديدة القادمة من الخادم
         if (btn.dataset.action === 'cancel') {
           if (!await confirmDialog('هل أنت متأكد أنك تريد إلغاء اشتراك Pro والعودة إلى Basic؟')) return;
           subInfo = await withBusy(btn, () => Api.subscriptionCancel());
           renderSubscription();
           toast('تم إلغاء اشتراك Pro، حسابك الآن Basic.');
         } else {
+          // عند الاشتراك يختلف نص السؤال إذا كان قد اشترك سابقاً
+          // وعند نعم ننتقل إلى صفحة الدفع مباشرة
+          // كل اشتراك أو إعادة اشتراك يبدأ دورة جديدة من تاريخ الدفع
           const question = subInfo.had_pro
             ? 'هل تريد إعادة الاشتراك في باقة Pro مقابل 10 دولارات شهرياً؟'
             : 'هل تريد الاشتراك في باقة Pro مقابل 10 دولارات شهرياً؟';
           if (!await confirmDialog(question)) return;
-          /* كل اشتراك أو إعادة اشتراك = دورة جديدة تبدأ من تاريخ الدفع */
           location.href = 'subscription.html?step=pay';
         }
       } catch (err) {
@@ -198,6 +241,8 @@ App.run({
       }
     });
 
+    // التهيئة الأولى بتعبئة النموذج ثم ربط الأحداث
+    // أي تعديل في النموذج يحدث المعاينة فوراً
     fillForm(profile);
     syncProfessionCheckbox();
     form.addEventListener('input', updatePreview);
@@ -207,6 +252,9 @@ App.run({
     });
     renderSubscription();
 
+    // حفظ الملف
+    // نتحقق من الحقول بالترتيب ثم نرسلها للخادم
+    // ثم نحدث النموذج والاسم في الشريط العلوي بالبيانات المحفوظة
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const fields = readForm();
@@ -241,19 +289,25 @@ App.run({
     });
   },
 
-  /* اختيار نوع الاشتراك بعد التسجيل، والدفع التجريبي لاشتراك Pro */
+  // صفحة الاشتراك وفيها ثلاثة أقسام يظهر منها قسم واحد فقط
+  // قسم اختيار الباقة وقسم الدفع وقسم الاشتراك الفعال
+  // الدالة المختصرة تظهر القسم المطلوب وتخفي الباقي
   async subscription() {
     const info = await Api.subscription();
     const steps = { choose: $('#step-choose'), pay: $('#step-pay'), active: $('#step-active') };
     const show = name => Object.entries(steps).forEach(([key, el]) => { el.hidden = key !== name; });
     const payError = $('#pay-error');
 
+    // إذا كان مشتركاً في برو بالفعل نعرض قسم الاشتراك الفعال مع تاريخ الانتهاء
+    // ولا نعرض نموذج الدفع
     if (info.subscription && info.subscription.subscription_type === 'pro') {
       $('#active-detail').textContent = info.subscription.end_date ? `اشتراكك فعّال وينتهي في ${info.subscription.end_date}.` : '';
       show('active');
       return;
     }
 
+    // نجهز تنسيق حقول البطاقة ونربط الأزرار
+    // زر المجاني يذهب إلى الملف الشخصي وزر برو يفتح الدفع وزر الرجوع يعود للاختيار
     PaymentForm.init();
     const openPayment = () => { show('pay'); $('#card-name').focus(); };
 
@@ -261,6 +315,10 @@ App.run({
     $('#choose-pro').addEventListener('click', openPayment);
     $('#pay-back').addEventListener('click', () => { showFormError(payError, ''); show('choose'); });
 
+    // عند الضغط على زر الدفع نقرأ البطاقة ونتحقق منها ثم نرسلها للخادم
+    // عند النجاح نمسح بيانات البطاقة ونخفي النموذج
+    // ونعرض رسالة النجاح القادمة من الخادم
+    // ثم ننتقل إلى الملف الشخصي بعد ثانيتين ونصف
     $('#pay-form').addEventListener('submit', async e => {
       e.preventDefault();
       const card = PaymentForm.read();
@@ -280,13 +338,17 @@ App.run({
       }
     });
 
+    // إذا جاء الحرفي من زر الاشتراك في ملفه نفتح الدفع مباشرة
+    // وإلا نعرض اختيار الباقة
     if (getParam('step') === 'pay') openPayment();
     else show('choose');
   },
 
+  // صفحة الطلبات الواردة للحرفي
   async requests() {
     const list = $('#requests-list');
 
+    // تجلب الطلبات وترتبها حسب ترتيب الحالات ثم ترسمها
     async function render() {
       const requests = (await Api.craftsmanRequests())
         .sort((a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status));
@@ -296,6 +358,8 @@ App.run({
     }
     await render();
 
+    // تظهر نموذج عرض السعر أو نموذج الرفض لطلب معين وتخفي أزرار القبول والرفض
+    // أو تعيد الأزرار عند الضغط على إلغاء
     function showPanel(id, which) {
       const card = list.querySelector(`[data-buttons="${id}"]`).closest('.request-card');
       card.querySelector(`[data-buttons="${id}"]`).hidden = which !== null;
@@ -305,6 +369,8 @@ App.run({
       if (focusEl) focusEl.focus();
     }
 
+    // مستمع واحد على قائمة الطلبات يختار العملية حسب الزر المضغوط
+    // عملية الإنجاز ترسل للخادم أن الخدمة أنجزت ثم تعيد رسم القائمة
     list.addEventListener('click', async e => {
       const btn = e.target.closest('[data-action]');
       if (!btn) return;
@@ -323,6 +389,9 @@ App.run({
       }
     });
 
+    // عند إرسال أحد النموذجين داخل البطاقة نميزه بتنسيقه
+    // نموذج العرض نتحقق فيه من السعر والمدة والموعد ثم نرسل عرض السعر
+    // نموذج الرفض نتحقق فيه من السبب ثم نرسله
     list.addEventListener('submit', async e => {
       e.preventDefault();
       const form = e.target;
@@ -353,6 +422,7 @@ App.run({
     });
   },
 
+  // صفحة الشكاوى للحرفي والطرف الآخر في الطلب هو العميل
   async complaints() {
     initComplaintForm(await Api.craftsmanRequests(), r => r.customer_name);
   }
