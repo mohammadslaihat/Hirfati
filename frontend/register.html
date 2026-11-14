@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء حساب | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body data-page="register" data-root="">
+
+  <main class="auth-page">
+    <div class="card auth-card wide">
+      <a href="index.html" class="brand">حِرفتي</a>
+      <h1>إنشاء حساب جديد</h1>
+      <p class="muted center">اختر نوع الحساب ثم أكمل البيانات.</p>
+
+      <form id="register-form" novalidate>
+        <span class="label">نوع الحساب</span>
+        <div class="choice-grid">
+          <label class="choice">
+            <input type="radio" name="role" value="customer" checked>
+            <span class="choice-body">
+              <span class="choice-title">عميل</span>
+              <span class="choice-desc">أبحث عن حرفي لتنفيذ خدمة</span>
+            </span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="role" value="craftsman">
+            <span class="choice-body">
+              <span class="choice-title">حرفي</span>
+              <span class="choice-desc">أقدّم خدماتي للعملاء</span>
+            </span>
+          </label>
+        </div>
+
+        <div id="register-error" class="form-error" hidden></div>
+
+        <!-- البيانات المشتركة -->
+        <h2 class="fieldset-title">البيانات الأساسية</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-name">الاسم الكامل</label>
+            <input type="text" id="reg-name" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-phone">رقم الهاتف</label>
+            <input type="tel" id="reg-phone" dir="ltr" value="+962" placeholder="+9627XXXXXXXX" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-email">البريد الإلكتروني</label>
+            <input type="email" id="reg-email" dir="ltr" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-governorate">المحافظة</label>
+            <select id="reg-governorate" required></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-password">كلمة المرور</label>
+            <input type="password" id="reg-password" dir="ltr" autocomplete="new-password" required>
+            <p class="hint">6 أحرف على الأقل.</p>
+          </div>
+          <div class="form-group">
+            <label for="reg-password2">تأكيد كلمة المرور</label>
+            <input type="password" id="reg-password2" dir="ltr" autocomplete="new-password" required>
+          </div>
+        </div>
+
+        <!-- بيانات الحرفي -->
+        <fieldset id="craftsman-fields" hidden disabled>
+          <h2 class="fieldset-title">بيانات الحرفي</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reg-profession">المهنة</label>
+              <select id="reg-profession" required><option value="">اختر المهنة</option></select>
+            </div>
+            <div class="form-group">
+              <label for="reg-experience">سنوات الخبرة</label>
+              <input type="number" id="reg-experience" min="0" max="60" required>
+            </div>
+          </div>
+          <div class="form-group" id="other-service-group" hidden>
+            <label for="reg-other-service">اسم الخدمة التي تقدمها</label>
+            <input type="text" id="reg-other-service" maxlength="100" placeholder="مثال: دراي كلين، بنشر، تنظيف مكاتب">
+            <p class="hint">اكتب اسم خدمتك كما تريد أن يراه العملاء، وسيظهر إعلانك ضمن قسم «خدمات أخرى».</p>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary btn-block" id="register-submit">إنشاء الحساب</button>
+      </form>
+
+      <p class="auth-switch">لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="static/js/api.js"></script>
+  <script src="static/js/main.js"></script>
+  <script src="static/js/auth.js"></script>
+</body>
+</html>

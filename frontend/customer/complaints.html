@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الشكاوى | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body data-role="customer" data-page="complaints" data-root="../">
+  <header id="site-header"></header>
+
+  <main class="container page">
+    <div class="card auth-card wide" style="margin-inline: auto;">
+      <h1 class="page-title">تقديم شكوى</h1>
+      <p class="muted">ستصل شكواك إلى قسم الشكاوى والجودة وسيتم التعامل معها في أقرب وقت.</p>
+
+      <form id="complaint-form" novalidate>
+        <div id="complaint-error" class="form-error" hidden></div>
+        <div class="form-group">
+          <label for="complaint-request">الطلب المتعلق بالشكوى (اختياري)</label>
+          <select id="complaint-request"></select>
+          <p class="hint">اختر الطلب إذا كانت الشكوى بخصوص حرفي معين.</p>
+        </div>
+        <div class="form-group">
+          <label for="complaint-details">تفاصيل الشكوى</label>
+          <textarea id="complaint-details" placeholder="اكتب تفاصيل الشكوى بوضوح" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">إرسال الشكوى</button>
+        <div id="complaint-success" class="form-success" hidden>تم إرسال شكواك بنجاح إلى قسم الشكاوى والجودة.</div>
+      </form>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="../static/js/api.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/customer.js"></script>
+</body>
+</html>

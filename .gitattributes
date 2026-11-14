@@ -1,0 +1,4 @@
+# توحيد نهايات الأسطر (LF) على جميع الأجهزة لتجنّب مشاكل Docker
+* text=auto eol=lf
+*.png binary
+*.jpg binary

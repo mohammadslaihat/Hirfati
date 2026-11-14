@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الملف الشخصي | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body data-role="craftsman" data-page="profile" data-root="../">
+  <header id="site-header"></header>
+
+  <main class="container page">
+    <h1 class="page-title">الملف الشخصي</h1>
+    <p class="section-sub">هذه البيانات هي التي تظهر للعملاء عند تصفح الحرفيين.</p>
+
+    <!-- حالة الاشتراك الحالية -->
+    <section class="card sub-box" id="sub-box" hidden>
+      <div>
+        <span class="sub-label">حالة الاشتراك</span>
+        <strong class="sub-status" id="sub-status"></strong>
+        <span class="muted small" id="sub-detail"></span>
+      </div>
+      <button type="button" class="btn btn-sm" id="sub-action"></button>
+    </section>
+
+    <div class="split">
+      <!-- نموذج تعديل البيانات -->
+      <form class="card" id="profile-form" novalidate>
+        <div id="profile-error" class="form-error" hidden></div>
+
+        <h2 class="fieldset-title">البيانات الشخصية</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-name">الاسم</label>
+            <input type="text" id="p-name" required>
+          </div>
+          <div class="form-group">
+            <label for="p-phone">رقم الهاتف</label>
+            <input type="tel" id="p-phone" dir="ltr" placeholder="+9627XXXXXXXX" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-profession">المهنة</label>
+            <select id="p-profession" required></select>
+          </div>
+          <div class="form-group">
+            <label for="p-experience">سنوات الخبرة</label>
+            <input type="number" id="p-experience" min="0" max="60" required>
+          </div>
+        </div>
+        <div class="form-group" id="p-other-profession-group" hidden>
+          <label for="p-other-profession">اسم الخدمة التي تقدمها</label>
+          <input type="text" id="p-other-profession" maxlength="100" placeholder="مثال: دراي كلين، بنشر، تنظيف مكاتب">
+          <p class="hint">سيظهر إعلانك للعملاء ضمن قسم «خدمات أخرى» بهذا الاسم.</p>
+        </div>
+        <div class="form-group">
+          <label for="p-governorate">المحافظة</label>
+          <select id="p-governorate" required></select>
+        </div>
+        <div class="form-group">
+          <span class="label">مناطق العمل</span>
+          <div class="check-grid" id="p-areas"></div>
+        </div>
+        <div class="form-group">
+          <label for="p-bio">النبذة الشخصية</label>
+          <textarea id="p-bio" placeholder="عرّف العملاء بنفسك وبخبرتك"></textarea>
+        </div>
+        <div class="form-group">
+          <span class="label">الخدمات التي تقدمها</span>
+          <div class="check-grid" id="p-services"></div>
+          <p class="hint">مهنتك الأساسية مضافة تلقائياً، ويمكنك اختيار خدمات إضافية.</p>
+        </div>
+        <div class="form-group">
+          <label for="p-other-services">خدمات أخرى تقدمها (اختياري)</label>
+          <input type="text" id="p-other-services" maxlength="300" placeholder="مثال: دراي كلين، تنظيف مكاتب">
+          <p class="hint">افصل بين الخدمات بفاصلة. ستظهر ضمن قسم «خدمات أخرى».</p>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-block" id="profile-submit">حفظ الملف الشخصي</button>
+      </form>
+
+      <!-- معاينة الملف كما يظهر للعملاء -->
+      <aside class="preview">
+        <span class="preview-label">معاينة: هكذا يظهر ملفك للعملاء</span>
+        <div class="card" id="profile-preview"></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="../static/js/api.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/craftsman.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نوع الاشتراك | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body data-role="craftsman" data-page="subscription" data-root="../">
+  <header id="site-header"></header>
+
+  <main class="container page">
+    <!-- الخطوة 1: اختيار نوع الاشتراك -->
+    <section id="step-choose" hidden>
+      <h1 class="page-title">اختر نوع الاشتراك</h1>
+      <p class="section-sub">يمكنك البدء مجاناً، أو الاشتراك في Pro للحصول على مزايا إضافية.</p>
+
+      <div class="plan-grid">
+        <article class="card plan-card">
+          <h2 class="plan-name">Basic</h2>
+          <p class="plan-price">مجاني</p>
+          <ul class="plan-features">
+            <li class="no">بدون علامة Premium</li>
+            <li class="no">بدون أولوية في الظهور</li>
+            <li class="no">لا يظهر ضمن الحرفيين المميزين</li>
+          </ul>
+          <button type="button" class="btn btn-outline btn-block" id="choose-basic">متابعة بالاشتراك المجاني</button>
+        </article>
+
+        <article class="card plan-card plan-pro">
+          <h2 class="plan-name">Pro <span class="badge-premium">★ Premium</span></h2>
+          <p class="plan-price">10 دولارات شهرياً</p>
+          <ul class="plan-features">
+            <li>علامة Premium بجانب اسمك</li>
+            <li>الظهور ضمن الحرفيين المميزين في الصفحة الرئيسية</li>
+            <li>أولوية الظهور ضمن أوائل نتائج الحرفيين</li>
+          </ul>
+          <button type="button" class="btn btn-accent btn-block" id="choose-pro">الاشتراك في Pro</button>
+          <p class="plan-note">عند الاشتراك في Pro، ستحصل على علامة Premium بجانب اسمك، وستظهر ضمن الحرفيين المميزين، بالإضافة إلى أولوية الظهور في نتائج البحث.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- الخطوة 2: الدفع لاشتراك Pro (نظام دفع تجريبي) -->
+    <section id="step-pay" hidden>
+      <div class="card auth-card wide" style="margin-inline: auto;">
+        <h1 class="page-title">الاشتراك في Pro <span class="badge-premium">★ Premium</span></h1>
+        <p class="muted">10 دولارات لمدة شهر واحد، ويمكنك إلغاء الاشتراك في أي وقت من ملفك الشخصي.</p>
+
+        <form id="pay-form" novalidate>
+          <div id="pay-error" class="form-error" hidden></div>
+          <div class="form-group">
+            <label for="card-name">اسم صاحب البطاقة (Cardholder Name)</label>
+            <input type="text" id="card-name" autocomplete="off" maxlength="100" placeholder="Ahmad Khawaldeh">
+          </div>
+          <div class="form-group">
+            <label for="card-number">رقم البطاقة (Card Number)</label>
+            <input type="text" id="card-number" dir="ltr" inputmode="numeric" autocomplete="off" maxlength="19" placeholder="0000 0000 0000 0000">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-expiry">تاريخ الانتهاء (Expiry Date)</label>
+              <input type="text" id="card-expiry" dir="ltr" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+              <label for="card-cvv">رمز الأمان (CVV)</label>
+              <input type="password" id="card-cvv" dir="ltr" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="123">
+            </div>
+          </div>
+          <div class="btn-row">
+            <button type="submit" class="btn btn-accent" id="pay-submit">Pay $10</button>
+            <button type="button" class="btn btn-ghost" id="pay-back">رجوع</button>
+          </div>
+        </form>
+
+        <div id="pay-success" class="form-success center" hidden></div>
+      </div>
+    </section>
+
+    <!-- الحرفي مشترك في Pro بالفعل -->
+    <section id="step-active" hidden>
+      <div class="card auth-card wide center" style="margin-inline: auto;">
+        <h1 class="page-title">أنت مشترك في Pro <span class="badge-premium">★ Premium</span></h1>
+        <p class="muted" id="active-detail"></p>
+        <a href="profile.html" class="btn btn-primary">الذهاب إلى ملفك الشخصي</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="../static/js/api.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/payment.js"></script>
+  <script src="../static/js/craftsman.js"></script>
+</body>
+</html>

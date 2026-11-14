@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرئيسية | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body data-role="customer" data-page="home" data-root="../">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>اعثر على الحرفي المناسب لخدمتك بسهولة</h1>
+        <p>منصة حِرفتي تربطك بأصحاب المهن والحرف الموثوقين في الأردن.</p>
+      </div>
+    </section>
+
+    <div class="container page">
+      <!-- صندوق الفلترة -->
+      <form class="filter-box" id="filter-form" action="craftsmen.html" method="get">
+        <div class="form-group">
+          <label for="filter-service">نوع الخدمة</label>
+          <select id="filter-service" name="service"></select>
+        </div>
+        <div class="form-group">
+          <label for="filter-governorate">الموقع (المحافظة)</label>
+          <select id="filter-governorate" name="gov"></select>
+        </div>
+        <button type="submit" class="btn btn-primary">بحث</button>
+      </form>
+
+      <!-- الخدمات -->
+      <section class="section">
+        <h2 class="section-title">الخدمات</h2>
+        <p class="section-sub">اختر الخدمة التي تحتاجها لعرض الحرفيين المتخصصين بها.</p>
+        <div class="grid grid-4" id="services-grid"></div>
+        <div class="sub-services" id="other-services" hidden>
+          <h3>خدمات أخرى</h3>
+          <div class="grid grid-4" id="other-services-grid"></div>
+        </div>
+      </section>
+
+      <!-- الحرفيون المميزون -->
+      <section class="section">
+        <h2 class="section-title">الحرفيون المميزون</h2>
+        <div class="grid grid-3" id="featured-grid"></div>
+      </section>
+
+      <!-- كيف تعمل المنصة -->
+      <section class="section">
+        <h2 class="section-title">كيف تعمل المنصة</h2>
+        <p class="section-sub">أربع خطوات بسيطة للوصول إلى الخدمة التي تحتاجها.</p>
+        <div class="grid grid-4 steps">
+          <div class="card step">
+            <h3>ابحث عن الخدمة</h3>
+            <p>اختر المهنة والمحافظة وتصفح الملفات الشخصية.</p>
+          </div>
+          <div class="card step">
+            <h3>قارن الحرفيين والعروض</h3>
+            <p>اطلب عروض أسعار وقارن بين الأيام والتكلفة.</p>
+          </div>
+          <div class="card step">
+            <h3>احجز الخدمة</h3>
+            <p>ثبّت الموعد مع الحرفي الذي يناسبك.</p>
+          </div>
+          <div class="card step">
+            <h3>قيّم تجربتك</h3>
+            <p>شارك رأيك لتساعد غيرك على الاختيار.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="../static/js/api.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/customer.js"></script>
+</body>
+</html>

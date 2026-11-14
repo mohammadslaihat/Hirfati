@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body data-page="login" data-root="">
+
+  <main class="auth-page">
+    <div class="card auth-card">
+      <a href="index.html" class="brand">حِرفتي</a>
+      <h1>تسجيل الدخول</h1>
+      <p class="muted center">أدخل بريدك الإلكتروني وكلمة المرور للدخول إلى حسابك.</p>
+
+      <form id="login-form" novalidate>
+        <div id="login-error" class="form-error" hidden></div>
+
+        <div class="form-group">
+          <label for="login-email">البريد الإلكتروني</label>
+          <input type="email" id="login-email" dir="ltr" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">كلمة المرور</label>
+          <input type="password" id="login-password" dir="ltr" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">دخول</button>
+      </form>
+
+      <p class="auth-switch">ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a></p>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="static/js/api.js"></script>
+  <script src="static/js/main.js"></script>
+  <script src="static/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# لا تُنسخ هذه الملفات إلى صورة Docker
+.env
+.git
+.gitignore
+**/__pycache__
+**/*.pyc
+venv/
+.venv/
+database/
+Dockerfile
+docker-compose.yml
+README.md

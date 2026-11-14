@@ -1,0 +1,31 @@
+# إعدادات محلية تحتوي كلمات مرور — لا تُرفع إلى GitHub
+.env
+.env.*
+!.env.example
+
+# ملفات Python المؤقتة
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# البيئات الافتراضية
+venv/
+.venv/
+env/
+
+# ملفات المحررات
+.vscode/
+.idea/
+*.swp
+
+# ملفات النظام المؤقتة
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# ملفات ناتجة عن التشغيل
+*.log
+*.sql.gz
+dumps/

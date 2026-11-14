@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الملف الشخصي وطلباتي | حِرفتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body data-role="customer" data-page="my-requests" data-root="../">
+  <header id="site-header"></header>
+
+  <main class="container page">
+    <h1 class="page-title">الملف الشخصي وطلباتي</h1>
+
+    <!-- بيانات العميل -->
+    <section class="card section" style="margin-top: 16px;">
+      <div class="profile-head" style="margin-bottom: 16px;">
+        <span id="customer-avatar"></span>
+        <div>
+          <h2 class="profile-name" id="customer-name"></h2>
+          <p class="muted">حساب عميل</p>
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="info-item"><span>البريد الإلكتروني</span><strong id="customer-email" dir="ltr"></strong></div>
+        <div class="info-item"><span>رقم الهاتف</span><strong id="customer-phone" dir="ltr"></strong></div>
+        <div class="info-item"><span>المحافظة</span><strong id="customer-governorate"></strong></div>
+      </div>
+    </section>
+
+    <!-- الطلبات -->
+    <section class="section">
+      <h2 class="section-title">طلباتي</h2>
+      <p class="section-sub">تابع حالة طلباتك وعروض الأسعار التي وصلتك.</p>
+      <div class="request-list" id="requests-list"></div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="../static/js/api.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/customer.js"></script>
+</body>
+</html>
