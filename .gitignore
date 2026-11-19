@@ -32,3 +32,11 @@ desktop.ini
 *.log
 *.sql.gz
 dumps/
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+terraform/*.tfplan
+*.pem
