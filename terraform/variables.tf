@@ -115,3 +115,9 @@ variable "monitor_enabled" {
   type        = bool
   default     = false
 }
+
+variable "backup_retention_days" {
+  description = "Days to keep database backups in S3 before automatic deletion"
+  type        = number
+  default     = 30
+}

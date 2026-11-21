@@ -49,3 +49,7 @@ output "db_data_volume_id" {
 output "monitor_lambda_name" {
   value = aws_lambda_function.monitor.function_name
 }
+
+output "backup_bucket_name" {
+  value = local.backup_bucket
+}

@@ -1,0 +1,4 @@
+# Hirfati MySQL backup to S3 (installed as /etc/cron.d/hirfati-backup)
+# Every 6 hours, and 5 minutes after every boot (Learner Lab starts/stops the servers)
+0 */6 * * * root /home/ubuntu/hirfati-db/backup.sh >> /var/log/hirfati-backup.log 2>&1
+@reboot root sleep 300 && /home/ubuntu/hirfati-db/backup.sh >> /var/log/hirfati-backup.log 2>&1
