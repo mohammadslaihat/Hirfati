@@ -1,0 +1,33 @@
+# Hirfati - MySQL on EC2 B (private subnet 10.0.11.10)
+# Data lives on the separate EBS volume mounted at /data (backed up in step 12).
+# On the FIRST start with an empty /data/mysql, MySQL runs the files in ./initdb in order:
+#   01-schema.sql (tables), 02-seed.sql (demo data), 03-monitor-user.sh (read-only Lambda user)
+name: hirfati-db
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: hirfati-mysql
+    restart: unless-stopped
+    # .env holds MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD,
+    # MONITOR_USER, MONITOR_PASSWORD (never committed to git)
+    env_file: .env
+    environment:
+      TZ: Asia/Amman
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --performance-schema=OFF
+      - --skip-name-resolve
+    # Reachable only from the app servers and the Lambda (security group hirfati-db-sg)
+    ports:
+      - "3306:3306"
+    volumes:
+      - /data/mysql:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u\"$$MYSQL_USER\" -p\"$$MYSQL_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 60s

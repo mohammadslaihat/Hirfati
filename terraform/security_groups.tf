@@ -69,6 +69,14 @@ resource "aws_security_group" "db" {
   }
 
   ingress {
+    description     = "MySQL from monitor Lambda"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.lambda.id]
+  }
+
+  ingress {
     description     = "SSH via app server (jump host)"
     from_port       = 22
     to_port         = 22
@@ -84,4 +92,20 @@ resource "aws_security_group" "db" {
   }
 
   tags = { Name = "${var.project_name}-db-sg" }
+}
+
+# Monitor Lambda: no inbound traffic, only outbound to MySQL and AWS APIs
+resource "aws_security_group" "lambda" {
+  name        = "${var.project_name}-lambda-sg"
+  description = "Monitor Lambda inside the VPC"
+  vpc_id      = aws_vpc.main.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { Name = "${var.project_name}-lambda-sg" }
 }

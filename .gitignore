@@ -40,3 +40,14 @@ terraform/*.tfstate.*
 terraform/terraform.tfvars
 terraform/*.tfplan
 *.pem
+
+# Lambda build output
+lambda/build/
+terraform/build/
+
+# Server env files (contain passwords)
+deploy/**/.env
+
+# Lambda test output
+response.json
+response.jso

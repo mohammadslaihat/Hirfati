@@ -91,3 +91,27 @@ variable "db_data_volume_size" {
   type        = number
   default     = 10
 }
+
+variable "monitor_db_user" {
+  description = "Read-only MySQL user used by the monitor Lambda"
+  type        = string
+  default     = "hirfati_monitor"
+}
+
+variable "monitor_db_password" {
+  description = "Password of the read-only MySQL monitor user"
+  type        = string
+  sensitive   = true
+}
+
+variable "monitor_interval_minutes" {
+  description = "How often the monitor Lambda runs (minutes, 2 or more)"
+  type        = number
+  default     = 5
+}
+
+variable "monitor_enabled" {
+  description = "Enable the schedule only after the database is running"
+  type        = bool
+  default     = false
+}

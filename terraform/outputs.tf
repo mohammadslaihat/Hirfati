@@ -45,3 +45,7 @@ output "db_private_ip" {
 output "db_data_volume_id" {
   value = aws_ebs_volume.db_data.id
 }
+
+output "monitor_lambda_name" {
+  value = aws_lambda_function.monitor.function_name
+}
