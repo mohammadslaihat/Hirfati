@@ -39,7 +39,7 @@ resource "aws_lambda_function" "monitor" {
       DB_USER        = var.monitor_db_user
       DB_PASSWORD    = var.monitor_db_password
       WINDOW_MINUTES = tostring(var.monitor_interval_minutes)
-      SNS_TOPIC_ARN  = ""
+      SNS_TOPIC_ARN  = aws_sns_topic.alerts.arn
     }
   }
 

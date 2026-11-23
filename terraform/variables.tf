@@ -121,3 +121,27 @@ variable "backup_retention_days" {
   type        = number
   default     = 30
 }
+
+variable "asg_min_size" {
+  description = "Minimum app servers in the Auto Scaling group (in addition to EC2 A)"
+  type        = number
+  default     = 1
+}
+
+variable "asg_max_size" {
+  description = "Maximum app servers in the Auto Scaling group (in addition to EC2 A)"
+  type        = number
+  default     = 2
+}
+
+variable "asg_cpu_target" {
+  description = "Average CPU % that the Auto Scaling group tries to keep"
+  type        = number
+  default     = 50
+}
+
+variable "alarm_cpu_threshold" {
+  description = "CPU % that triggers the high-CPU alarms on EC2 A and EC2 B"
+  type        = number
+  default     = 80
+}
